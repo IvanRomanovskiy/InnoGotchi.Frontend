@@ -1,22 +1,23 @@
 ﻿using InnoGotchi.ApiClient.Interfaces.User;
 using InnoGotchi.ApiClient.Models.Users;
 using InnoGotchi.Application.Models.Users.Queries.GetUserData;
+using InnoGotchi.Domain;
 using System.Text.Json;
 
 namespace InnoGotchi.ApiClient.Clients
 {
-    public class AccountClient : Client, IUserCommands
+    public class AccountClient : IUserCommands
     {
-        private readonly string Token;
+        private readonly HttpClient httpClient;
+        private readonly string token;
 
-        public AccountClient(HttpClient client, string token) : base(client)
+        public AccountClient(HttpClient client) 
         {
-            client.BaseAddress = new Uri(client.BaseAddress + "Account/");
-            Token = token;
+            httpClient = client;
         }
         public async Task<UserData?> GetUserData()
         {
-            HttpResponseMessage response = await httpClient.GetAsync("GetUserData?t=" + Token);
+            HttpResponseMessage response = await httpClient.GetAsync("GetUserData?t=" + token);
             if (!response.IsSuccessStatusCode) return null;
 
             var userData = JsonSerializer.Deserialize<UserData>(response.Content.ReadAsStringAsync().Result);
@@ -29,7 +30,7 @@ namespace InnoGotchi.ApiClient.Clients
 
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8);
 
-            HttpResponseMessage response = await httpClient.PutAsync("ChangeName?t=" + Token, contentData);
+            HttpResponseMessage response = await httpClient.PutAsync("ChangeName?t=" + token, contentData);
 
             if (response.IsSuccessStatusCode) return true;
             else return false;
@@ -41,7 +42,7 @@ namespace InnoGotchi.ApiClient.Clients
 
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8);
 
-            HttpResponseMessage response = await httpClient.PutAsync("ChangePassword?t=" + Token, contentData);
+            HttpResponseMessage response = await httpClient.PutAsync("ChangePassword?t=" + token, contentData);
 
             if (response.IsSuccessStatusCode) return true;
             else return false;
@@ -53,7 +54,7 @@ namespace InnoGotchi.ApiClient.Clients
 
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8);
 
-            HttpResponseMessage response = await httpClient.PutAsync("ChangeAvatar?t=" + Token, contentData);
+            HttpResponseMessage response = await httpClient.PutAsync("ChangeAvatar?t=" + token, contentData);
 
             if (response.IsSuccessStatusCode) return true;
             else return false;

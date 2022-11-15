@@ -6,30 +6,40 @@ using System.Text.Json;
 
 namespace InnoGotchi.ApiClient.Clients
 {
-    public class ClientWithoutToken : Client, ICommandWithoutToken
+    public class ClientWithoutToken : ICommandWithoutToken
     {
-        public ClientWithoutToken(HttpClient client) : base(client)
+        protected readonly HttpClient httpClient;
+
+        public ClientWithoutToken(HttpClient client)
         {
+            httpClient = client;
         }
 
         public async Task<bool> CreateUser(CreateUserDto createUser)
         {
             string stringData = JsonSerializer.Serialize(createUser);
 
-            var contentData = new StringContent(stringData, Encoding.UTF8);
+            var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await httpClient.PostAsync("Account/CreateUser", contentData);
-
-            if (response.IsSuccessStatusCode) return true;
-            else return false;
-
+            try
+            {
+                using (HttpResponseMessage response = await httpClient.PostAsync("Account/CreateUser", contentData))
+                {
+                    if (response.IsSuccessStatusCode) return true;
+                }
+            }
+            catch (Exception)
+            {
+                
+            }
+            return false;
         }
         public async Task<string?> GetToken(GetTokenDto tokenDto)
         {
 
             string stringData = JsonSerializer.Serialize(tokenDto);
 
-            var contentData = new StringContent(stringData, Encoding.UTF8);
+            var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await httpClient.PostAsync("Account/GetToken", contentData);
 

@@ -7,7 +7,7 @@ namespace InnoGotchi.ApiClient.Models.Users
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public byte[] Avatar { get; set; }
+        public string AvatarBase { get; set; }
 
     }
 }

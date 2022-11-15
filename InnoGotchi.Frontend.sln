@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InnoGotchi.Domain", "InnoGo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InnoGotchi.ApiClient", "InnoGotchi.ApiClient\InnoGotchi.ApiClient.csproj", "{674E6DF9-F7B6-4FC9-85B1-84EC3E2EEBE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InnoGotchi.Frontend", "InnoGotchi.Frontend\InnoGotchi.Frontend.csproj", "{048E3FBD-38DC-4C54-A8E8-BCAAF5DE179A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InnoGotchi.Client", "InnoGotchi.Client\InnoGotchi.Client.csproj", "{7ACDDBD2-A0AC-4383-AD65-D5B7BEC773EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{674E6DF9-F7B6-4FC9-85B1-84EC3E2EEBE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{674E6DF9-F7B6-4FC9-85B1-84EC3E2EEBE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{674E6DF9-F7B6-4FC9-85B1-84EC3E2EEBE3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{048E3FBD-38DC-4C54-A8E8-BCAAF5DE179A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{048E3FBD-38DC-4C54-A8E8-BCAAF5DE179A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{048E3FBD-38DC-4C54-A8E8-BCAAF5DE179A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{048E3FBD-38DC-4C54-A8E8-BCAAF5DE179A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ACDDBD2-A0AC-4383-AD65-D5B7BEC773EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ACDDBD2-A0AC-4383-AD65-D5B7BEC773EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ACDDBD2-A0AC-4383-AD65-D5B7BEC773EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ACDDBD2-A0AC-4383-AD65-D5B7BEC773EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

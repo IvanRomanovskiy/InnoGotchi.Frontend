@@ -5,13 +5,15 @@ using System.Text.Json;
 
 namespace InnoGotchi.ApiClient.Clients
 {
-    public class FarmAccount : Client, IFarmCommands
+    public class FarmClient : IFarmCommands
     {
-        private readonly string Token;
-        public FarmAccount(HttpClient client, string token) : base(client)
+        private readonly HttpClient httpClient;
+        private readonly string token;
+
+        public FarmClient(IHttpClientFactory factory, string token)
         {
-            client.BaseAddress = new Uri(client.BaseAddress + "Farm/");
-            Token = token;
+            httpClient = factory.CreateClient();
+            this.token = token;
         }
 
         public async Task<bool> CreateFarm(CreateFarmDto createFarm)
@@ -20,7 +22,7 @@ namespace InnoGotchi.ApiClient.Clients
 
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await httpClient.PostAsync("CreateFarm?t=" + Token, contentData);
+            HttpResponseMessage response = await httpClient.PostAsync("CreateFarm?t=" + token, contentData);
 
             if (response.IsSuccessStatusCode) return true;
             else return false;
@@ -31,7 +33,7 @@ namespace InnoGotchi.ApiClient.Clients
 
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await httpClient.PostAsync("AddCollaborator?t=" + Token, contentData);
+            HttpResponseMessage response = await httpClient.PostAsync("AddCollaborator?t=" + token, contentData);
 
             if (response.IsSuccessStatusCode) return true;
             else return false;
@@ -39,7 +41,7 @@ namespace InnoGotchi.ApiClient.Clients
 
         public async Task<FarmInfo?> GetFarmInfo()
         {
-            HttpResponseMessage response = await httpClient.GetAsync("GetUserData?t=" + Token);
+            HttpResponseMessage response = await httpClient.GetAsync("GetUserData?t=" + token);
             if (!response.IsSuccessStatusCode) return null;
 
             var farmInfo = JsonSerializer.Deserialize<FarmInfo>(response.Content.ReadAsStringAsync().Result);
@@ -48,7 +50,7 @@ namespace InnoGotchi.ApiClient.Clients
         }
         public async Task<CollaboratorFarms?> GetCollaboratiorFarms()
         {
-            HttpResponseMessage response = await httpClient.GetAsync("GetCollaboratiorFarms?t=" + Token);
+            HttpResponseMessage response = await httpClient.GetAsync("GetCollaboratiorFarms?t=" + token);
             if (!response.IsSuccessStatusCode) return null;
 
             var farmInfo = JsonSerializer.Deserialize<CollaboratorFarms>(response.Content.ReadAsStringAsync().Result);

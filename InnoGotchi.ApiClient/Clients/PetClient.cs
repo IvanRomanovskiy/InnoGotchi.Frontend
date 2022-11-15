@@ -5,14 +5,15 @@ using System.Text.Json;
 
 namespace InnoGotchi.ApiClient.Clients
 {
-    public class PetClient : Client, IPetCommands
+    public class PetClient : IPetCommands
     {
-        private readonly string Token;
-        public PetClient(HttpClient client, string token) : base(client)
-        {
-            client.BaseAddress = new Uri(client.BaseAddress + "Pet/");
+        private readonly HttpClient httpClient;
+        private readonly string token;
 
-            Token = token;
+        public PetClient(IHttpClientFactory factory, string token)
+        {
+            httpClient = factory.CreateClient();
+            this.token = token;
         }
         public async Task<bool> CreatePet(CreatePetDto createPet)
         {
@@ -20,7 +21,7 @@ namespace InnoGotchi.ApiClient.Clients
 
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8);
 
-            HttpResponseMessage response = await httpClient.PostAsync("CreatePet?t=" + Token, contentData);
+            HttpResponseMessage response = await httpClient.PostAsync("CreatePet?t=" + token, contentData);
 
             if (response.IsSuccessStatusCode) return true;
             else return false;
@@ -32,7 +33,7 @@ namespace InnoGotchi.ApiClient.Clients
 
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8);
 
-            HttpResponseMessage response = await httpClient.PutAsync("FeedPet?t=" + Token, contentData);
+            HttpResponseMessage response = await httpClient.PutAsync("FeedPet?t=" + token, contentData);
 
             if (response.IsSuccessStatusCode) return true;
             else return false;
@@ -44,7 +45,7 @@ namespace InnoGotchi.ApiClient.Clients
 
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8);
 
-            HttpResponseMessage response = await httpClient.PutAsync("ThirstQuenchingPet?t=" + Token, contentData);
+            HttpResponseMessage response = await httpClient.PutAsync("ThirstQuenchingPet?t=" + token, contentData);
 
             if (response.IsSuccessStatusCode) return true;
             else return false;
@@ -53,7 +54,7 @@ namespace InnoGotchi.ApiClient.Clients
 
         public async Task<Pets?> GetPets()
         {
-            HttpResponseMessage response = await httpClient.GetAsync("GetPets?t=" + Token);
+            HttpResponseMessage response = await httpClient.GetAsync("GetPets?t=" + token);
             if (!response.IsSuccessStatusCode) return null;
 
             var farmInfo = JsonSerializer.Deserialize<Pets>(response.Content.ReadAsStringAsync().Result);
