@@ -1,5 +1,4 @@
 ﻿using InnoGotchi.Client.Views;
-using InnoGotchi.Domain;
 using System.Windows.Controls;
 
 namespace InnoGotchi.Client.ViewModels
@@ -8,18 +7,6 @@ namespace InnoGotchi.Client.ViewModels
     {
         private Page Welcome;
         private Page Game;
-
-
-        private Token token;
-        public Token Token
-        {
-            get { return token; }
-            set
-            {
-                token = value;
-                if (token.access_token != null && token.access_token != "") CurrentPage = Game;
-            }
-        }
 
         private Page currentPage;
         public Page CurrentPage
@@ -39,19 +26,26 @@ namespace InnoGotchi.Client.ViewModels
             set { frameOpacity = value; }
         }
 
-        public MainViewModel(Token token)
+        public MainViewModel()
         {
             Welcome = new Welcome();
+            Game = new Game();
             frameOpacity = 1;
             CurrentPage = Welcome;
-            this.token = token;
             AccessToken.UserAuthorized += UserAuthorized;
         }
-
-        public void UserAuthorized()
+        public void UserAuthorized(string newToken)
         {
-            Game = new Game();
-            CurrentPage = Game;
+            if (newToken != "")
+            {
+                CurrentPage = Game;
+            }
+            else 
+            {
+                Game = new Game();
+                Welcome = new Welcome();             
+                CurrentPage = Welcome; 
+            }
         }
 
     }

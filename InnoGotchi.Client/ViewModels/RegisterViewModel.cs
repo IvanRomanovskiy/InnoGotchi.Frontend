@@ -10,6 +10,7 @@ using System;
 using System.IO;
 using System.Net.Mail;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 
@@ -79,7 +80,7 @@ namespace InnoGotchi.Client.ViewModels
             }
         }
 
-        public BitmapImage Avatar 
+        public BitmapFrame Avatar 
         {
             get => register.Avatar;
             set
@@ -101,7 +102,7 @@ namespace InnoGotchi.Client.ViewModels
                     };
                     if (dialog.ShowDialog() == true)
                     {
-                        Avatar = new BitmapImage(new Uri(dialog.FileName));
+                        Avatar = BitmapFrame.Create(new BitmapImage(new Uri(dialog.FileName)));
                         
                     }
                 });
@@ -129,7 +130,14 @@ namespace InnoGotchi.Client.ViewModels
                 if (error is "")
                 {
                         InputIsActive = false;
-                        var result = await commands.CreateUser(mapper.Map<CreateUserDto>(register));
+                        if (Avatar == null) Avatar = Properties.Resources.DefaultAvatar.ByteToImage();
+                        var e = mapper.Map<CreateUserDto>(register);
+                        
+
+                        var result = await commands.CreateUser(e);
+
+
+
 
                         if (result)
                         {

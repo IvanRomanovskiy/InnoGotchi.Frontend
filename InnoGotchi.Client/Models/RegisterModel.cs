@@ -12,7 +12,7 @@ namespace InnoGotchi.Client.Models
         public string LastName { get; set; } = "";
         public string Email { get; set; } = ""; 
         public string Password { get; set; } = "";
-        public BitmapImage Avatar { get; set; } = new BitmapImage();
+        public BitmapFrame Avatar { get; set; }
 
         public void Mapping(Profile profile)
         {

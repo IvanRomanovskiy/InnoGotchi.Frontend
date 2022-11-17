@@ -8,13 +8,6 @@ namespace InnoGotchi.ApiClient
 {
     public static class DependencyInjection
     {
-        private static Token token;
-        private static Token Token
-        {
-            get { return token; }
-            set { token = value; }
-        }
-
         public static IServiceCollection AddApiClient(this IServiceCollection services, string baseAddress)
         {
             services.AddTransient<HttpContextMiddleware>();
@@ -25,10 +18,6 @@ namespace InnoGotchi.ApiClient
                 config.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             })
                 .AddHttpMessageHandler<HttpContextMiddleware>();
-
-            services.AddSingleton<Token>(ser => {
-                return Token;
-            });
 
             services.AddHttpClient<AccountClient>(config =>
             {

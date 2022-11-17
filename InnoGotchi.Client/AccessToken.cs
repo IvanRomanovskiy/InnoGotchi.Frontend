@@ -3,10 +3,10 @@ namespace InnoGotchi.Client
 {
     public static class AccessToken
     {
-        public delegate void UserAuthorizedHandler();
+        public delegate void UserAuthorizedHandler(string newToken);
         public static event UserAuthorizedHandler? UserAuthorized;
 
-        private static string token;
+        private static string token = "";
         public static string Token
         {
             get
@@ -15,8 +15,8 @@ namespace InnoGotchi.Client
             }
             set
             {
-                UserAuthorized.Invoke();
                 token = value;
+                UserAuthorized.Invoke(value);
             }
         }
     }

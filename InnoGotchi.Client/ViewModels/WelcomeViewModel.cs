@@ -2,7 +2,6 @@
 using InnoGotchi.Frontend.Utilities;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static InnoGotchi.Client.AccessToken;
 
 namespace InnoGotchi.Client.ViewModels
 {
@@ -12,7 +11,6 @@ namespace InnoGotchi.Client.ViewModels
         private Page Register;
 
         private Page currentPage;
-        UserAuthorizedHandler userAuthorized;
         public Page CurrentPage
         {
             get { return currentPage; }
@@ -39,7 +37,7 @@ namespace InnoGotchi.Client.ViewModels
             CurrentPage = new Page();
         }
 
-
+        
         public ICommand ButtonLogin_Click
         {
             get 
@@ -57,6 +55,17 @@ namespace InnoGotchi.Client.ViewModels
                 return new RelayCommand((obj) =>
                 {
                     CurrentPage = Register;
+                });
+            }
+        }
+
+        public ICommand ButtonExit_Click
+        {
+            get
+            {
+                return new RelayCommand((obj) =>
+                {
+                    System.Windows.Application.Current.Shutdown();
                 });
             }
         }

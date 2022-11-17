@@ -1,7 +1,8 @@
 ﻿using InnoGotchi.ApiClient.Interfaces.User;
 using InnoGotchi.ApiClient.Models.Users;
-using InnoGotchi.Application.Models.Users.Queries.GetUserData;
 using InnoGotchi.Domain;
+using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 
 namespace InnoGotchi.ApiClient.Clients
@@ -9,26 +10,28 @@ namespace InnoGotchi.ApiClient.Clients
     public class AccountClient : IUserCommands
     {
         private readonly HttpClient httpClient;
-        private readonly string token;
 
         public AccountClient(HttpClient client) 
         {
             httpClient = client;
         }
-        public async Task<UserData?> GetUserData()
+        public async Task<UserData?> GetUserData(string token)
         {
             HttpResponseMessage response = await httpClient.GetAsync("GetUserData?t=" + token);
             if (!response.IsSuccessStatusCode) return null;
 
-            var userData = JsonSerializer.Deserialize<UserData>(response.Content.ReadAsStringAsync().Result);
+            var a = await response.Content.ReadFromJsonAsync<UserData>();
 
-            return userData;
+
+           //var userData = JsonSerializer.Deserialize<UserData>();
+
+            return a;
         }
-        public async Task<bool> ChangeName(ChangeNameDto changeName)
+        public async Task<bool> ChangeName(ChangeNameDto changeName, string token)
         {
             string stringData = JsonSerializer.Serialize(changeName);
 
-            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8);
+            var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await httpClient.PutAsync("ChangeName?t=" + token, contentData);
 
@@ -36,11 +39,11 @@ namespace InnoGotchi.ApiClient.Clients
             else return false;
 
         }
-        public async Task<bool> ChangePassword(ChangePasswordDto changePassword)
+        public async Task<bool> ChangePassword(ChangePasswordDto changePassword, string token)
         {
             string stringData = JsonSerializer.Serialize(changePassword);
 
-            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8);
+            var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await httpClient.PutAsync("ChangePassword?t=" + token, contentData);
 
@@ -48,11 +51,11 @@ namespace InnoGotchi.ApiClient.Clients
             else return false;
 
         }
-        public async Task<bool> ChangeAvatar(ChangeAvatarDto changeAvatar)
+        public async Task<bool> ChangeAvatar(ChangeAvatarDto changeAvatar, string token)
         {
             string stringData = JsonSerializer.Serialize(changeAvatar);
 
-            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8);
+            var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await httpClient.PutAsync("ChangeAvatar?t=" + token, contentData);
 
@@ -60,6 +63,5 @@ namespace InnoGotchi.ApiClient.Clients
             else return false;
 
         }
-
     }
 }
