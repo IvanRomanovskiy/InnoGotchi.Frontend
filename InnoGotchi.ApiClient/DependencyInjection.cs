@@ -1,6 +1,5 @@
 ﻿using InnoGotchi.ApiClient.Clients;
 
-using InnoGotchi.Domain;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http.Headers;
 
@@ -22,6 +21,12 @@ namespace InnoGotchi.ApiClient
             services.AddHttpClient<AccountClient>(config =>
             {
                 config.BaseAddress = new Uri(baseAddress + "Account/");               
+            })
+                .AddHttpMessageHandler<HttpContextMiddleware>();
+
+            services.AddHttpClient<FarmClient>(config =>
+            {
+                config.BaseAddress = new Uri(baseAddress + "Farm/");
             })
                 .AddHttpMessageHandler<HttpContextMiddleware>();
 

@@ -1,6 +1,7 @@
 ﻿using InnoGotchi.ApiClient.Interfaces.Farm;
 using InnoGotchi.ApiClient.Models.Farm;
 using InnoGotchi.Domain;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace InnoGotchi.ApiClient.Clients
@@ -8,15 +9,12 @@ namespace InnoGotchi.ApiClient.Clients
     public class FarmClient : IFarmCommands
     {
         private readonly HttpClient httpClient;
-        private readonly string token;
-
-        public FarmClient(IHttpClientFactory factory, string token)
+        public FarmClient(HttpClient client)
         {
-            httpClient = factory.CreateClient();
-            this.token = token;
+            httpClient = client;
         }
 
-        public async Task<bool> CreateFarm(CreateFarmDto createFarm)
+        public async Task<bool> CreateFarm(CreateFarmDto createFarm,string token)
         {
             string stringData = JsonSerializer.Serialize(createFarm);
 
@@ -27,7 +25,7 @@ namespace InnoGotchi.ApiClient.Clients
             if (response.IsSuccessStatusCode) return true;
             else return false;
         }
-        public async Task<bool> AddCollaborator(AddCollaboratorDto addCollaborator)
+        public async Task<bool> AddCollaborator(AddCollaboratorDto addCollaborator, string token)
         {
             string stringData = JsonSerializer.Serialize(addCollaborator);
 
@@ -39,16 +37,16 @@ namespace InnoGotchi.ApiClient.Clients
             else return false;
         }
 
-        public async Task<FarmInfo?> GetFarmInfo()
+        public async Task<FarmInfo?> GetFarmInfo(string token)
         {
-            HttpResponseMessage response = await httpClient.GetAsync("GetUserData?t=" + token);
+            HttpResponseMessage response = await httpClient.GetAsync("GetFarmInfo?t=" + token);
             if (!response.IsSuccessStatusCode) return null;
 
-            var farmInfo = JsonSerializer.Deserialize<FarmInfo>(response.Content.ReadAsStringAsync().Result);
+            var farmInfo = await response.Content.ReadFromJsonAsync<FarmInfo>();
 
             return farmInfo;
         }
-        public async Task<CollaboratorFarms?> GetCollaboratiorFarms()
+        public async Task<CollaboratorFarms?> GetCollaboratiorFarms(string token)
         {
             HttpResponseMessage response = await httpClient.GetAsync("GetCollaboratiorFarms?t=" + token);
             if (!response.IsSuccessStatusCode) return null;

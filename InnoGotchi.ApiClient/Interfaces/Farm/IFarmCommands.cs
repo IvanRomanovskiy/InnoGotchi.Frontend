@@ -5,9 +5,9 @@ namespace InnoGotchi.ApiClient.Interfaces.Farm
 {
     public interface IFarmCommands
     {
-        public Task<bool> CreateFarm(CreateFarmDto createFarm);
-        public Task<bool> AddCollaborator(AddCollaboratorDto addCollaborator);
-        public Task<FarmInfo?> GetFarmInfo();
-        public Task<CollaboratorFarms?> GetCollaboratiorFarms();
+        public Task<bool> CreateFarm(CreateFarmDto createFarm, string token);
+        public Task<bool> AddCollaborator(AddCollaboratorDto addCollaborator, string token);
+        public Task<FarmInfo?> GetFarmInfo(string token);
+        public Task<CollaboratorFarms?> GetCollaboratiorFarms(string token);
     }
 }

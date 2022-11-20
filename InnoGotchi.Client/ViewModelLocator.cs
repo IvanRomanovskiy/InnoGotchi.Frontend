@@ -3,6 +3,7 @@ using InnoGotchi.ApiClient.Mappings;
 using InnoGotchi.Client.Models;
 using InnoGotchi.Client.ViewModels;
 using InnoGotchi.Client.ViewModels.AccountViewModels;
+using InnoGotchi.Client.ViewModels.PetsVewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -37,6 +38,8 @@ namespace InnoGotchi.Client
             services.AddTransient<ChangeNameViewModel>();
             services.AddTransient<ChangeAvatarViewModel>();
             services.AddTransient<ChangePasswordViewModel>();
+            services.AddTransient<FarmViewModel>();
+            services.AddTransient<PetThumbnailViewModel>();
 
             provider = services.BuildServiceProvider();
             foreach (var item in services)
@@ -57,5 +60,7 @@ namespace InnoGotchi.Client
         public ChangeNameViewModel ChangeNameViewModel => provider.GetRequiredService<ChangeNameViewModel>();
         public ChangeAvatarViewModel ChangeAvatarViewModel => provider.GetRequiredService<ChangeAvatarViewModel>();
         public ChangePasswordViewModel ChangePasswordViewModel => provider.GetRequiredService<ChangePasswordViewModel>();
+        public FarmViewModel FarmViewModel => provider.GetRequiredService<FarmViewModel>();
+        public PetThumbnailViewModel PetThumbnailViewModel => provider.GetRequiredService<PetThumbnailViewModel>();
     }
 }

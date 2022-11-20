@@ -5,9 +5,9 @@ namespace InnoGotchi.ApiClient.Interfaces.Pet
 {
     public interface IPetCommands
     {
-        public Task<bool> CreatePet(CreatePetDto createPet);
-        public Task<bool> FeedPet(Guid petId);
-        public Task<bool> ThirstQuenchingPet(Guid petId);
-        public Task<Pets?> GetPets();
+        public Task<bool> CreatePet(CreatePetDto createPet, string token);
+        public Task<bool> FeedPet(Guid petId, string token);
+        public Task<bool> ThirstQuenchingPet(Guid petId, string token);
+        public Task<Pets?> GetPets(string token);
     }
 }

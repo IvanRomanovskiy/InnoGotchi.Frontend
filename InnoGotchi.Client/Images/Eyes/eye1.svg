@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xodm="http://www.corel.com/coreldraw/odm/2003" xml:space="preserve" width="4944" height="3901" version="1.1" style="shape-rendering: geometricprecision; text-rendering: geometricprecision; fill-rule: evenodd; clip-rule: evenodd;"><rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="none" stroke="none"/>
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#828282;stroke-width:41.67;stroke-miterlimit:2.61313}
+    .str1 {stroke:black;stroke-width:6.94;stroke-miterlimit:2.61313}
+    .fil1 {fill:black}
+    .fil0 {fill:white}
+   ]]>
+  </style>
+ </defs>
+ 
+<g class="currentLayer" style=""><title>Layer 1</title><g id="Layer_x0020_1" class="">
+  <metadata id="CorelCorpID_0Corel-Layer" transform="translate(-2818.10009765625,-2034.610107421875) "/>
+  <ellipse class="fil0 str0" cx="3679.35986328125" cy="2090.880126953125" rx="1265.0799560546875" ry="1747.9300537109375" id="svg_1"/>
+  <ellipse class="fil0 str0" cx="1429.25" cy="1950.72998046875" rx="1429.25" ry="1950.72998046875" id="svg_2"/>
+  <ellipse class="fil1 str1" cx="1408.10986328125" cy="2047.2998046875" rx="318.67999267578125" ry="463.5400085449219" id="svg_3"/>
+  <ellipse class="fil1 str1" cx="3631.080078125" cy="2063.749755859375" rx="289.7099914550781" ry="434.57000732421875" id="svg_4"/>
+ </g></g></svg>

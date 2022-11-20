@@ -1,0 +1,28 @@
+﻿<Page x:Class="InnoGotchi.Client.Views.PetViews.PetThumbnail"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InnoGotchi.Client.Views.PetViews"
+      xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+      mc:Ignorable="d" 
+      DataContext ="{Binding PetThumbnailViewModel, Source={StaticResource ViewModelLocator}}"
+      d:DesignHeight="600" d:DesignWidth="450"
+      Title="PetThumbnail">
+
+    <Grid Background="Coral">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <svgc:SvgViewbox Source="{Binding Body}"/>
+            <svgc:SvgViewbox Source="{Binding Eye}" Margin="0,27,0,250"/>
+            <svgc:SvgViewbox Source="{Binding Mouth}" Margin="3,283,-3,0"/>
+            <svgc:SvgViewbox Source="{Binding Nose}" Margin="98,170,98,92"/>
+        </Grid>
+        
+        
+    </Grid>
+</Page>

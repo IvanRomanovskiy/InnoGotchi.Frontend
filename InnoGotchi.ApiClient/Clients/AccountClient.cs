@@ -20,12 +20,9 @@ namespace InnoGotchi.ApiClient.Clients
             HttpResponseMessage response = await httpClient.GetAsync("GetUserData?t=" + token);
             if (!response.IsSuccessStatusCode) return null;
 
-            var a = await response.Content.ReadFromJsonAsync<UserData>();
+            var result = await response.Content.ReadFromJsonAsync<UserData>();
 
-
-           //var userData = JsonSerializer.Deserialize<UserData>();
-
-            return a;
+            return result;
         }
         public async Task<bool> ChangeName(ChangeNameDto changeName, string token)
         {

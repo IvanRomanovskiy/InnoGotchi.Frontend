@@ -100,7 +100,13 @@ namespace InnoGotchi.Client.ViewModels
             Avatar = avatar;
         }
 
-
+        public ICommand ButtonFarm_Click
+        {
+            get => new RelayCommand((obj) =>
+            {
+                CurrentPage = farm;
+            });
+        }
         public ICommand ButtonAccount_Click
         {
             get => new RelayCommand((obj) =>

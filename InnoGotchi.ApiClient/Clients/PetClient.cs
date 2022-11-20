@@ -8,14 +8,12 @@ namespace InnoGotchi.ApiClient.Clients
     public class PetClient : IPetCommands
     {
         private readonly HttpClient httpClient;
-        private readonly string token;
 
-        public PetClient(IHttpClientFactory factory, string token)
+        public PetClient(HttpClient client)
         {
-            httpClient = factory.CreateClient();
-            this.token = token;
+            httpClient = client;
         }
-        public async Task<bool> CreatePet(CreatePetDto createPet)
+        public async Task<bool> CreatePet(CreatePetDto createPet, string token)
         {
             string stringData = JsonSerializer.Serialize(createPet);
 
@@ -27,7 +25,7 @@ namespace InnoGotchi.ApiClient.Clients
             else return false;
         }
 
-        public async Task<bool> FeedPet(Guid petId)
+        public async Task<bool> FeedPet(Guid petId, string token)
         {
             string stringData = JsonSerializer.Serialize(petId);
 
@@ -39,7 +37,7 @@ namespace InnoGotchi.ApiClient.Clients
             else return false;
 
         }
-        public async Task<bool> ThirstQuenchingPet(Guid petId)
+        public async Task<bool> ThirstQuenchingPet(Guid petId, string token)
         {
             string stringData = JsonSerializer.Serialize(petId);
 
@@ -52,7 +50,7 @@ namespace InnoGotchi.ApiClient.Clients
 
         }
 
-        public async Task<Pets?> GetPets()
+        public async Task<Pets?> GetPets(string token)
         {
             HttpResponseMessage response = await httpClient.GetAsync("GetPets?t=" + token);
             if (!response.IsSuccessStatusCode) return null;
