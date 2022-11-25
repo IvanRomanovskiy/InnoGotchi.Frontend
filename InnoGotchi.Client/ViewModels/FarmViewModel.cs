@@ -2,20 +2,23 @@
 using InnoGotchi.ApiClient.Clients;
 using InnoGotchi.ApiClient.Models.Farm;
 using InnoGotchi.Client.Models;
-using InnoGotchi.Domain;
 using InnoGotchi.Frontend.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace InnoGotchi.Client.ViewModels
 {
     public class FarmViewModel : ViewModelBase
     {
+        public delegate void MyPetsClicked();
+        public delegate void MyCollaboratorsPetsClicked();
+        public static event MyPetsClicked OnMyPetsClicked;
+        public static event MyCollaboratorsPetsClicked OnMyCollaboratorsPetsClicked;
+
+
         private bool farmGridVisibility;
         public Visibility NoFarmGrid
         {
@@ -37,8 +40,7 @@ namespace InnoGotchi.Client.ViewModels
             }
         }
 
-        
-
+      
         private FarmInfoModel farmInfo;
         public string Name
         {
@@ -47,7 +49,7 @@ namespace InnoGotchi.Client.ViewModels
         }
         public string CountAlivePets
         {
-            get => $"Alive pets count: {farmInfo.CountAlivePets}";
+            get => farmInfo.CountAlivePets;
             set
             {
                 farmInfo.CountAlivePets = value;
@@ -56,7 +58,7 @@ namespace InnoGotchi.Client.ViewModels
         }
         public string CountDeadPets
         {
-            get => $"Dead pets count: {farmInfo.CountDeadPets}";
+            get => farmInfo.CountDeadPets;
             set
             {
                 farmInfo.CountDeadPets = value;
@@ -65,7 +67,7 @@ namespace InnoGotchi.Client.ViewModels
         }
         public string AverageFeedingPeriod
         {
-            get => $"Average feeding period: {farmInfo.AverageFeedingPeriod}";
+            get => farmInfo.AverageFeedingPeriod;
             set
             {
                 farmInfo.AverageFeedingPeriod = value;
@@ -74,7 +76,7 @@ namespace InnoGotchi.Client.ViewModels
         }
         public string AverageThirstQuenchingPeriod
         {
-            get => $"Average thirst quenching period: {farmInfo.AverageThirstQuenchingPeriod}";
+            get => farmInfo.AverageThirstQuenchingPeriod;
             set
             {
                 farmInfo.AverageThirstQuenchingPeriod = value;
@@ -83,7 +85,7 @@ namespace InnoGotchi.Client.ViewModels
         }
         public string AveragePetsHappinessDaysCount
         {
-            get => $"Average pet's happiness days count: {farmInfo.AveragePetsHappinessDaysCount}";
+            get => farmInfo.AveragePetsHappinessDaysCount;
             set
             {
                 farmInfo.AveragePetsHappinessDaysCount = value;
@@ -92,7 +94,7 @@ namespace InnoGotchi.Client.ViewModels
         }
         public string AveragePetsAgeCount
         {
-            get => $"Average pet's age: {farmInfo.AveragePetsAgeCount}";
+            get => farmInfo.AveragePetsAgeCount;
             set
             {
                 farmInfo.AveragePetsHappinessDaysCount = value;
@@ -119,7 +121,6 @@ namespace InnoGotchi.Client.ViewModels
             farmInfo = new FarmInfoModel();
             PieCollection = new ObservableCollection<PiePoint>();
         }
-
         private async Task UpdateFarmStats()
         {
             var info = await client.GetFarmInfo(AccessToken.Token);
@@ -145,9 +146,6 @@ namespace InnoGotchi.Client.ViewModels
             AveragePetsHappinessDaysCount = farm.AveragePetsHappinessDaysCount;
             AveragePetsAgeCount = farm.AveragePetsAgeCount;
             Name = farm.Name;
-
-
-
         }
         private async void UserAuthorized(string newToken)
         {
@@ -165,7 +163,20 @@ namespace InnoGotchi.Client.ViewModels
                 }
             });
         }
-
-
+        public ICommand ButtonMyPets_Click
+        {
+            get => new RelayCommand(async (obj) =>
+            {
+                OnMyPetsClicked.Invoke();
+            });
+        }
+        public ICommand ButtonCollaboratorsPets_Click
+        {
+            get => new RelayCommand(async (obj) =>
+            {
+                OnMyCollaboratorsPetsClicked.Invoke();
+            });
+        }
+        
     }
 }

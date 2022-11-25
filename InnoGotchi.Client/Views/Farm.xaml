@@ -45,13 +45,12 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <Label Grid.Row="0" Content="{Binding CountAlivePets}"/>
-                        <Label Grid.Row="1" Content="{Binding CountDeadPets}"/>
-                        <Label Grid.Row="2" Content="{Binding AverageFeedingPeriod}"/>
-                        <Label Grid.Row="3" Content="{Binding AverageThirstQuenchingPeriod}"/>
-                        <Label Grid.Row="4" Content="{Binding AveragePetsHappinessDaysCount}"/>
-                        <Label Grid.Row="5" Content="{Binding AveragePetsAgeCount}"/>
-
+                        <Label Grid.Row="0" Content="{Binding CountAlivePets}" ContentStringFormat='Alive pets count: {0}'/>
+                        <Label Grid.Row="1" Content="{Binding CountDeadPets}" ContentStringFormat='Dead pets count: {0}'/>
+                        <Label Grid.Row="2" Content="{Binding AverageFeedingPeriod}" ContentStringFormat='Average feeding period: {0}'/>
+                        <Label Grid.Row="3" Content="{Binding AverageThirstQuenchingPeriod}" ContentStringFormat='Average thirst quenching period: {0}'/>
+                        <Label Grid.Row="4" Content="{Binding AveragePetsHappinessDaysCount}" ContentStringFormat="Average pet's happiness days count: {0}"/>
+                        <Label Grid.Row="5" Content="{Binding AveragePetsAgeCount}" ContentStringFormat="Average pet's age: {0}"/>
                     </Grid>
 
                 </Grid>
@@ -70,8 +69,8 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Button Grid.Row="0" VerticalAlignment="Center" Content="My pets" FontSize="30" Margin="10"/>
-                <Button Grid.Row="1" VerticalAlignment="Center" Content="Collaborator's pets" FontSize="30" Margin="10"/>
+                <Button Grid.Row="0" VerticalAlignment="Center" Content="My pets" Command="{Binding ButtonMyPets_Click}" FontSize="30" Margin="10"/>
+                <Button Grid.Row="1" VerticalAlignment="Center" Content="Collaborator's pets" Command="{Binding ButtonCollaboratorsPets_Click}" FontSize="30" Margin="10"/>
             </Grid>
             
             

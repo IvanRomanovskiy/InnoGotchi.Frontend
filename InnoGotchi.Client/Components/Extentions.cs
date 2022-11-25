@@ -1,6 +1,8 @@
 ﻿using InnoGotchi.Client.Views;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Windows.Documents;
 using System.Windows.Media.Imaging;
 
 namespace InnoGotchi.Client.Components

@@ -1,8 +1,8 @@
 ﻿using InnoGotchi.ApiClient;
 using InnoGotchi.ApiClient.Mappings;
-using InnoGotchi.Client.Models;
 using InnoGotchi.Client.ViewModels;
 using InnoGotchi.Client.ViewModels.AccountViewModels;
+using InnoGotchi.Client.ViewModels.FarmViewModels;
 using InnoGotchi.Client.ViewModels.PetsVewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -11,6 +11,8 @@ namespace InnoGotchi.Client
 {
     public class ViewModelLocator
     {
+        private const string API_PATH = "https://localhost:7100/api/";
+
         private static ServiceProvider provider;
 
 
@@ -27,19 +29,27 @@ namespace InnoGotchi.Client
             services.AddTransient<LoginViewModel>();
 
 
-            services.AddApiClient("https://localhost:7100/api/");
+            services.AddApiClient(API_PATH);
             services.AddAutoMapper(config =>
             {
                 config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
             });
 
-            services.AddScoped<GameViewModel>();
+            services.AddTransient<GameViewModel>();
             services.AddTransient<AccountViewModel>();
             services.AddTransient<ChangeNameViewModel>();
             services.AddTransient<ChangeAvatarViewModel>();
             services.AddTransient<ChangePasswordViewModel>();
+
+            services.AddTransient<FarmOverviewViewModel>();
+            services.AddTransient<CreateFarmViewModel>();
+            services.AddTransient<FarmDetailsViewModel>();
+            services.AddTransient<FarmStatisticViewModel>();
+
             services.AddTransient<FarmViewModel>();
-            services.AddTransient<PetThumbnailViewModel>();
+            services.AddTransient<FarmPetsViewModel>();
+            services.AddTransient<CreatePetViewModel>();
+
 
             provider = services.BuildServiceProvider();
             foreach (var item in services)
@@ -51,6 +61,10 @@ namespace InnoGotchi.Client
             }
 
         }
+
+
+
+
         public WelcomeViewModel WelcomeViewModel => provider.GetRequiredService<WelcomeViewModel>();
         public MainViewModel MainViewModel => provider.GetRequiredService<MainViewModel>();
         public LoginViewModel LoginViewModel => provider.GetRequiredService<LoginViewModel>();
@@ -61,6 +75,13 @@ namespace InnoGotchi.Client
         public ChangeAvatarViewModel ChangeAvatarViewModel => provider.GetRequiredService<ChangeAvatarViewModel>();
         public ChangePasswordViewModel ChangePasswordViewModel => provider.GetRequiredService<ChangePasswordViewModel>();
         public FarmViewModel FarmViewModel => provider.GetRequiredService<FarmViewModel>();
-        public PetThumbnailViewModel PetThumbnailViewModel => provider.GetRequiredService<PetThumbnailViewModel>();
+        public FarmPetsViewModel FarmPetsViewModel => provider.GetRequiredService<FarmPetsViewModel>();
+        public CreatePetViewModel CreatePetViewModel => provider.GetRequiredService<CreatePetViewModel>();
+
+
+        public FarmOverviewViewModel FarmOverviewViewModel => provider.GetRequiredService<FarmOverviewViewModel>();
+        public CreateFarmViewModel CreateFarmViewModel => provider.GetRequiredService<CreateFarmViewModel>();
+        public FarmDetailsViewModel FarmDetailsViewModel => provider.GetRequiredService<FarmDetailsViewModel>();
+        public FarmStatisticViewModel FarmStatisticViewModel => provider.GetRequiredService<FarmStatisticViewModel>();
     }
 }

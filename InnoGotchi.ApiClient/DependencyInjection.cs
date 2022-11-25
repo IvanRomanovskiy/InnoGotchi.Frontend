@@ -14,7 +14,6 @@ namespace InnoGotchi.ApiClient
             var WTClientFactory = services.AddHttpClient<ClientWithoutToken>(config =>
             {
                 config.BaseAddress = new Uri(baseAddress);
-                config.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             })
                 .AddHttpMessageHandler<HttpContextMiddleware>();
 
@@ -27,6 +26,12 @@ namespace InnoGotchi.ApiClient
             services.AddHttpClient<FarmClient>(config =>
             {
                 config.BaseAddress = new Uri(baseAddress + "Farm/");
+            })
+                .AddHttpMessageHandler<HttpContextMiddleware>();
+
+            services.AddHttpClient<PetClient>(config =>
+            {
+                config.BaseAddress = new Uri(baseAddress + "Pet/");
             })
                 .AddHttpMessageHandler<HttpContextMiddleware>();
 

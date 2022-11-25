@@ -7,22 +7,31 @@
       xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
       mc:Ignorable="d" 
       DataContext ="{Binding PetThumbnailViewModel, Source={StaticResource ViewModelLocator}}"
-      d:DesignHeight="600" d:DesignWidth="450"
+      d:DesignHeight="450" d:DesignWidth="800"
       Title="PetThumbnail">
 
     <Grid Background="Coral">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <svgc:SvgViewbox Source="{Binding Body}"/>
-            <svgc:SvgViewbox Source="{Binding Eye}" Margin="0,27,0,250"/>
-            <svgc:SvgViewbox Source="{Binding Mouth}" Margin="3,283,-3,0"/>
-            <svgc:SvgViewbox Source="{Binding Nose}" Margin="98,170,98,92"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+
+        <Grid Grid.Column="0">
+
         </Grid>
-        
-        
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            
+        </Grid>
+
+
+
+
     </Grid>
 </Page>

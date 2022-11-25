@@ -17,7 +17,7 @@ namespace InnoGotchi.ApiClient.Clients
         {
             string stringData = JsonSerializer.Serialize(createPet);
 
-            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8);
+            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await httpClient.PostAsync("CreatePet?t=" + token, contentData);
 
@@ -41,7 +41,7 @@ namespace InnoGotchi.ApiClient.Clients
         {
             string stringData = JsonSerializer.Serialize(petId);
 
-            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8);
+            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await httpClient.PutAsync("ThirstQuenchingPet?t=" + token, contentData);
 

@@ -51,7 +51,7 @@ namespace InnoGotchi.ApiClient.Clients
             HttpResponseMessage response = await httpClient.GetAsync("GetCollaboratiorFarms?t=" + token);
             if (!response.IsSuccessStatusCode) return null;
 
-            var farmInfo = JsonSerializer.Deserialize<CollaboratorFarms>(response.Content.ReadAsStringAsync().Result);
+            var farmInfo = await response.Content.ReadFromJsonAsync<CollaboratorFarms>();
 
             return farmInfo;
         }

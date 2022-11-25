@@ -2,24 +2,26 @@
 using InnoGotchi.ApiClient.Clients;
 using InnoGotchi.Client.Models;
 using InnoGotchi.Client.ViewModels.AccountViewModels;
+using InnoGotchi.Client.ViewModels.FarmViewModels;
+using InnoGotchi.Client.ViewModels.PetsVewModels;
 using InnoGotchi.Client.Views;
-using InnoGotchi.Domain;
+using InnoGotchi.Client.Views.FarmViews;
+using InnoGotchi.Client.Views.PetViews;
 using InnoGotchi.Frontend.Utilities;
-using System;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using static InnoGotchi.Client.ViewModels.AccountViewModels.ChangeNameViewModel;
+
 
 namespace InnoGotchi.Client.ViewModels
 {
     public class GameViewModel : ViewModelBase
     {
         private Page farm;
-        private Page friends;
         private Page account;
+        private Page farmPets;
+        private Page statistic;
+
         private Page currentPage;
         public Page CurrentPage
         {
@@ -65,19 +67,28 @@ namespace InnoGotchi.Client.ViewModels
         private readonly IMapper mapper;
         public GameViewModel(AccountClient client, IMapper mapper)
         {
-            AccessToken.UserAuthorized += UserAuthorized;
-            ChangeNameViewModel.UserNameChanged += UserNameChanged;
-            ChangeAvatarViewModel.AvatarChanged += AvatarChanged;
+            InitEvents();
 
             this.client = client;
             this.mapper = mapper;
             userData = new UserDataModel();
-            farm = new Farm();
-            friends = new Friends();
+            farm = new FarmOverview();
             account = new Account();
+            farmPets = new FarmPets();
+            statistic = new FarmStatistic();
             CurrentPage = farm;
         }
-
+        public void InitEvents()
+        {
+            AccessToken.UserAuthorized += UserAuthorized;
+            ChangeNameViewModel.UserNameChanged += UserNameChanged;
+            ChangeAvatarViewModel.AvatarChanged += AvatarChanged;
+            FarmPetsViewModel.OnCreatePetClicked += OnCreatePetClicked;
+            FarmViewModel.OnMyPetsClicked += OnMyPetsClicked;
+            CreatePetViewModel.OnPetCreated += OnPetCreated;
+            FarmDetailsViewModel.OnPetButtonPressed += OnPetMenuButtonPressed;
+            FarmDetailsViewModel.OnStatButtonPressed += OnStatisticButtonPressed;
+        }
         private async void UserAuthorized(string newToken)
         {
             if(newToken != "")
@@ -99,6 +110,29 @@ namespace InnoGotchi.Client.ViewModels
         {
             Avatar = avatar;
         }
+        private void OnCreatePetClicked()
+        {
+            CurrentPage = new CreatePet();
+        }
+        private void OnMyPetsClicked()
+        {
+            CurrentPage = farmPets;
+        }
+        private void OnPetCreated()
+        {
+            CurrentPage = farmPets;
+        }
+        private void OnPetMenuButtonPressed()
+        {
+            CurrentPage = farmPets;
+        }
+        private void OnStatisticButtonPressed()
+        {
+            CurrentPage = statistic;
+        }
+
+
+
 
         public ICommand ButtonFarm_Click
         {
@@ -119,13 +153,8 @@ namespace InnoGotchi.Client.ViewModels
         {
             get => new RelayCommand((obj) =>
             {
-                CurrentPage = new Page();
-                farm = new Farm();
-                friends = new Friends();
-                account = new Account();
                 AccessToken.Token = "";
             });
         }
-
     }
 }
