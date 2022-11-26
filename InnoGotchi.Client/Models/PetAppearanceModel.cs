@@ -2,7 +2,7 @@
 
 namespace InnoGotchi.Client.Models
 {
-    public class PetAppearance
+    public class PetAppearanceModel
     {
         public string BodyPath { get; set; } = null;
         public string EyesPath { get; set; } = null;

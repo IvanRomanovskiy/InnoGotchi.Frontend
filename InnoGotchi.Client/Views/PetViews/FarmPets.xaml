@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:InnoGotchi.Client.Views.PetViews"
+      xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+
       mc:Ignorable="d" 
       DataContext ="{Binding FarmPetsViewModel, Source={StaticResource ViewModelLocator}}"
       d:DesignHeight="450" d:DesignWidth="800"
@@ -19,21 +21,271 @@
         <Label Grid.Row="0" HorizontalAlignment="Center" Content="Pets" FontSize="40"/>
 
         <Grid Grid.Row="1">
+
+
+            <!--<ListBox Background="Transparent" ItemsSource="{Binding PetsThumbnailsList}" SelectedItem="{Binding SelectedPet}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Background="{Binding PetThumbnail.BackgroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <svgc:SvgViewbox  AutoSize="False" Source="{Binding PetThumbnail.BodyPath}"/>
+                                <svgc:SvgViewbox  AutoSize="False" Source="{Binding PetThumbnail.EyesPath}"/>
+                                <svgc:SvgViewbox  AutoSize="False" Source="{Binding PetThumbnail.MouthPath}"/>
+                                <svgc:SvgViewbox  AutoSize="False" Source="{Binding PetThumbnail.NosePath}"/>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="4*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" TextWrapping="WrapWithOverflow" Text="{Binding PetThumbnail.PetName}" VerticalAlignment="Center"/>
+
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0">
+                                        <Run Text="Hunger:"/>
+                                        <Run Text="{Binding PetThumbnail.Hungry}"/>
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="1">
+                                        <Run Text="Thirsty:"/>
+                                        <Run Text="{Binding PetThumbnail.Thirsty}"/>
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="2">
+                                        <Run Text="Happy:"/>
+                                        <Run Text="{Binding PetThumbnail.Happy}"/>
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="3">
+                                        <Run Text="Age:"/>
+                                        <Run Text="{Binding PetThumbnail.Age}"/>
+                                    </TextBlock>
+
+
+                                </Grid>
+
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Grid.Column" Value="{Binding Column}"/>
+                        <Setter Property="Grid.Row" Value="{Binding Row}"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>-->
+
+
+
+                        <ListBox Background="Transparent" ItemsSource="{Binding PetsThumbnailsList}" SelectedItem="{Binding SelectedPet}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Background="{Binding PetThumbnail.BackgroundColor}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <svgc:SvgViewbox  AutoSize="False" Source="{Binding PetThumbnail.BodyPath}"/>
+                                <svgc:SvgViewbox  AutoSize="False" Source="{Binding PetThumbnail.EyesPath}"/>
+                                <svgc:SvgViewbox  AutoSize="False" Source="{Binding PetThumbnail.MouthPath}"/>
+                                <svgc:SvgViewbox  AutoSize="False" Source="{Binding PetThumbnail.NosePath}"/>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="4*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" TextWrapping="WrapWithOverflow" Text="{Binding PetThumbnail.PetName}" VerticalAlignment="Center"/>
+
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0">
+                                        <Run Text="Hunger:"/>
+                                        <Run Text="{Binding PetThumbnail.Hungry}"/>
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="1">
+                                        <Run Text="Thirsty:"/>
+                                        <Run Text="{Binding PetThumbnail.Thirsty}"/>
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="2">
+                                        <Run Text="Happy:"/>
+                                        <Run Text="{Binding PetThumbnail.Happy}"/>
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="3">
+                                        <Run Text="Age:"/>
+                                        <Run Text="{Binding PetThumbnail.Age}"/>
+                                    </TextBlock>
+
+
+                                </Grid>
+
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Grid.Column" Value="{Binding Column}"/>
+                        <Setter Property="Grid.Row" Value="{Binding Row}"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+
             
+
+
+            <!--<ItemsControl ItemsSource="{Binding PetsThumbnailsList}" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Background="{Binding PetThumbnail.BackgroundColor}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <svgc:SvgViewbox  AutoSize="False" Source="{Binding PetThumbnail.BodyPath}"/>
+                                <svgc:SvgViewbox  AutoSize="False" Source="{Binding PetThumbnail.EyesPath}"/>
+                                <svgc:SvgViewbox  AutoSize="False" Source="{Binding PetThumbnail.MouthPath}"/>
+                                <svgc:SvgViewbox  AutoSize="False" Source="{Binding PetThumbnail.NosePath}"/>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="4*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" TextWrapping="WrapWithOverflow" Text="{Binding PetThumbnail.PetName}" VerticalAlignment="Center"/>
+
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0">
+                                        <Run Text="Hunger:"/>
+                                        <Run Text="{Binding PetThumbnail.Hungry}"/>
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="1">
+                                        <Run Text="Thirsty:"/>
+                                        <Run Text="{Binding PetThumbnail.Thirsty}"/>
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="2">
+                                        <Run Text="Happy:"/>
+                                        <Run Text="{Binding PetThumbnail.Happy}"/>
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="3">
+                                        <Run Text="Age:"/>
+                                        <Run Text="{Binding PetThumbnail.Age}"/>
+                                    </TextBlock>
+
+
+                                </Grid>
+                                
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type ContentPresenter}">
+                        <Setter Property="Grid.Column" Value="{Binding Column}"/>
+                        <Setter Property="Grid.Row" Value="{Binding Row}"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>-->
+
         </Grid>
-        
+
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="30*"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="280*"/>
+                <ColumnDefinition Width="300*"/>
+                <ColumnDefinition Width="80*"/>
+                <ColumnDefinition Width="60*"/>
+                <ColumnDefinition Width="80*"/>
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" Content="Create pet" Command="{Binding ButtonCreatePet_Click}" Margin="10,10,10,10"/>
-            <Button Grid.Column="1" Content="Prev" Margin="10,10,10,10"/>
+            <ComboBox Grid.Column="1" ItemsSource="{Binding Filters}"
+                      SelectedItem="{Binding Filter}" Margin="10" SelectedIndex="0">
 
-            <Button Grid.Column="3" Content="Next" Margin="10,10,10,10"/>
+
+
+            </ComboBox>
+            <Button Grid.Column="2" Content="Prev" Command="{Binding ButtonPrevList_Click}" Margin="10,10,10,10"/>
+            <Label Grid.Column="3" Content="{Binding Page}"/>
+            <Button Grid.Column="4" Content="Next" Command="{Binding ButtonNextList_Click}" Margin="10,10,10,10"/>
 
         </Grid>
 

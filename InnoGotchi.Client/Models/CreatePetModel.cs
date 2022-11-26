@@ -9,7 +9,7 @@ namespace InnoGotchi.Client.Models
     public class CreatePetModel : IMapWith<CreatePetDto>
     {
         public string Name { get; set; } = "";
-        public PetAppearance Appearance { get; set; } = new PetAppearance();
+        public PetAppearanceModel Appearance { get; set; } = new PetAppearanceModel();
 
         public void Mapping(Profile profile)
         {

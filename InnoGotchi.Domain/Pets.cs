@@ -8,6 +8,6 @@ namespace InnoGotchi.Domain
 {
     public class Pets
     {
-        public ICollection<Pet> pets { get; set; }
+        public ICollection<Pet> pets { get; set; } = new List<Pet>();
     }
 }

@@ -11,9 +11,9 @@
 
     <Grid Background="Gray">
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="18*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -25,7 +25,7 @@
 
         </Grid>
 
-        <Button Grid.Row="1" Content="Create farm" Command="{Binding ButtonCreateFarm_Click}" VerticalAlignment="Center" FontSize="40" Margin="10"  />
+        <Button Grid.Row="1" Content="Create farm" Command="{Binding ButtonCreateFarm_Click}" VerticalAlignment="Center" FontSize="40" Margin="10,0,10,0" Height="56"  />
         <Label Grid.Row="2" Content="{Binding Error}"/>
     </Grid>
 </Page>

@@ -5,7 +5,7 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
 {
     public class PetViewModel : ViewModelBase
     {
-        private PetAppearance appearance;
+        private PetAppearanceModel appearance;
         public string BodyPath
         {
             get => appearance.BodyPath;
@@ -43,9 +43,9 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
             }
         }
 
-       public PetViewModel(PetAppearance appearance)
+       public PetViewModel(PetAppearanceModel appearance)
         {
-            this.appearance = new PetAppearance();
+            this.appearance = new PetAppearanceModel();
             BodyPath = appearance.BodyPath;
             NosePath = appearance.NosePath;
             EyesPath = appearance.EyesPath;

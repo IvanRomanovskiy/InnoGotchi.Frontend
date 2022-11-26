@@ -1,6 +1,10 @@
-﻿using InnoGotchi.Client.Models;
+﻿using AutoMapper;
+using InnoGotchi.Client.Models;
 using InnoGotchi.Domain;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace InnoGotchi.Client.ViewModels.FarmViewModels
 {
@@ -90,7 +94,14 @@ namespace InnoGotchi.Client.ViewModels.FarmViewModels
             AverageFeedingPeriod = info.AverageFeedingPeriod.ToString();
             AverageThirstQuenchingPeriod = info.AverageThirstQuenchingPeriod.ToString();
             AveragePetsHappinessDaysCount = info.AveragePetsHappinessDaysCount.ToString();
-            AveragePetsAgeCount = info.AveragePetsAgeCount.ToString();           
+            AveragePetsAgeCount = info.AveragePetsAgeCount.ToString();
+
+            List<PiePoint> points = new List<PiePoint>()
+            {
+                new PiePoint() { Name = "Alive pets", Share = info.CountAlivePets },
+                new PiePoint() { Name = "Dead pets", Share = info.CountDeadPets }
+            };
+            PieCollection = new ObservableCollection<PiePoint>(points);
         }
 
     }

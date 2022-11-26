@@ -1,21 +1,18 @@
 ﻿using AutoMapper;
 using InnoGotchi.ApiClient.Clients;
 using InnoGotchi.ApiClient.Models.Pets;
-using InnoGotchi.Client.Components;
 using InnoGotchi.Client.Models;
 using InnoGotchi.Client.Views.PetViews;
+using InnoGotchi.Domain;
 using InnoGotchi.Frontend.Utilities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace InnoGotchi.Client.ViewModels.PetsVewModels
 {
     public class CreatePetViewModel : ViewModelBase
     {
-        public delegate void PetCreated();
+        public delegate void PetCreated(Pet pet);
         public static event PetCreated OnPetCreated;
 
         private CreatePetModel model;
@@ -106,7 +103,7 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
             InitParts();
             model = new CreatePetModel()
             {
-                Appearance = new PetAppearance()
+                Appearance = new PetAppearanceModel()
                 {
                     BodyPath = BodyNode.Value,
                     EyesPath = EyesNode.Value,
@@ -234,10 +231,10 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
             {
                 Error = "";
                 var command = mapper.Map<CreatePetDto>(model);
-
-                if (await client.CreatePet(command, AccessToken.Token))
+                var pet = await client.CreatePet(command, AccessToken.Token);
+                if (pet != null)
                 {
-                    OnPetCreated.Invoke();
+                    OnPetCreated.Invoke(pet);
                 }
                 else Error = "Pet with same name already exists.";
 

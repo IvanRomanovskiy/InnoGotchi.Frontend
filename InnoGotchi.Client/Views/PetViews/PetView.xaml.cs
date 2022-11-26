@@ -6,7 +6,7 @@ namespace InnoGotchi.Client.Views.PetViews
 {
     public partial class PetView : Page
     {
-        public PetView(PetAppearance appearance)
+        public PetView(PetAppearanceModel appearance)
         {
             InitializeComponent();
             DataContext = new PetViewModel(appearance);

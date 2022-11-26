@@ -1,11 +1,10 @@
-﻿
-namespace InnoGotchi.Domain
+﻿namespace InnoGotchi.Domain
 {
     public class PetAppearance
     {
-        public string BodyPath { get; set; }
-        public string Eye { get; set; }
-        public string Mouth { get; set; }
-        public string Nose { get; set; }
+        public Body Body { get; set; }
+        public Eye Eye { get; set; }
+        public Mouth Mouth { get; set; }
+        public Nose Nose { get; set; }
     }
 }

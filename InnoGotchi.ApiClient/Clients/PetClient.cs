@@ -1,6 +1,8 @@
 ﻿using InnoGotchi.ApiClient.Interfaces.Pet;
+using InnoGotchi.ApiClient.Models.Farm;
 using InnoGotchi.ApiClient.Models.Pets;
 using InnoGotchi.Domain;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace InnoGotchi.ApiClient.Clients
@@ -13,7 +15,7 @@ namespace InnoGotchi.ApiClient.Clients
         {
             httpClient = client;
         }
-        public async Task<bool> CreatePet(CreatePetDto createPet, string token)
+        public async Task<Pet?> CreatePet(CreatePetDto createPet, string token)
         {
             string stringData = JsonSerializer.Serialize(createPet);
 
@@ -21,8 +23,8 @@ namespace InnoGotchi.ApiClient.Clients
 
             HttpResponseMessage response = await httpClient.PostAsync("CreatePet?t=" + token, contentData);
 
-            if (response.IsSuccessStatusCode) return true;
-            else return false;
+            if (response.IsSuccessStatusCode) return await response.Content.ReadFromJsonAsync<Pet>();
+            else return null;
         }
 
         public async Task<bool> FeedPet(Guid petId, string token)
@@ -55,9 +57,9 @@ namespace InnoGotchi.ApiClient.Clients
             HttpResponseMessage response = await httpClient.GetAsync("GetPets?t=" + token);
             if (!response.IsSuccessStatusCode) return null;
 
-            var farmInfo = JsonSerializer.Deserialize<Pets>(response.Content.ReadAsStringAsync().Result);
+            var farmInfo = await response.Content.ReadFromJsonAsync<GetPetsVm>();
 
-            return farmInfo;
+            return new Pets { pets = farmInfo.Pets };
         }
 
 

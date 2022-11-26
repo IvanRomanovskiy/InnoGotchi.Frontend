@@ -7,6 +7,7 @@ using InnoGotchi.Client.ViewModels.PetsVewModels;
 using InnoGotchi.Client.Views;
 using InnoGotchi.Client.Views.FarmViews;
 using InnoGotchi.Client.Views.PetViews;
+using InnoGotchi.Domain;
 using InnoGotchi.Frontend.Utilities;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -118,7 +119,7 @@ namespace InnoGotchi.Client.ViewModels
         {
             CurrentPage = farmPets;
         }
-        private void OnPetCreated()
+        private void OnPetCreated(Pet pet)
         {
             CurrentPage = farmPets;
         }

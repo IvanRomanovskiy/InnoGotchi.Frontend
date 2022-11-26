@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using InnoGotchi.Client.Models;
 using InnoGotchi.Domain;
+using InnoGotchi.Client.ViewModels.PetsVewModels;
+using static InnoGotchi.Client.ViewModels.PetsVewModels.CreatePetViewModel;
 
 namespace InnoGotchi.Client.ViewModels.FarmViewModels
 {
@@ -44,6 +46,7 @@ namespace InnoGotchi.Client.ViewModels.FarmViewModels
         {
             AccessToken.UserAuthorized += UserAuthorized;
             CreateFarmViewModel.OnFarmCreated += OnFarmCreated;
+            CreatePetViewModel.OnPetCreated += OnPetCreated;
             this.client = client;
             this.mapper = mapper;
             MyFarm = new Page();
@@ -54,6 +57,10 @@ namespace InnoGotchi.Client.ViewModels.FarmViewModels
             if (newToken != "") await GetData(newToken);
         }
         private async void OnFarmCreated()
+        {
+            await GetData(AccessToken.Token);
+        }
+        private async void OnPetCreated(Pet pet)
         {
             await GetData(AccessToken.Token);
         }
