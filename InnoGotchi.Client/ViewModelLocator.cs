@@ -49,6 +49,7 @@ namespace InnoGotchi.Client
             services.AddTransient<FarmViewModel>();
             services.AddTransient<FarmPetsViewModel>();
             services.AddTransient<CreatePetViewModel>();
+            services.AddTransient<PetDetailsViewModel>(); 
 
 
             provider = services.BuildServiceProvider();
@@ -78,10 +79,10 @@ namespace InnoGotchi.Client
         public FarmPetsViewModel FarmPetsViewModel => provider.GetRequiredService<FarmPetsViewModel>();
         public CreatePetViewModel CreatePetViewModel => provider.GetRequiredService<CreatePetViewModel>();
 
-
         public FarmOverviewViewModel FarmOverviewViewModel => provider.GetRequiredService<FarmOverviewViewModel>();
         public CreateFarmViewModel CreateFarmViewModel => provider.GetRequiredService<CreateFarmViewModel>();
         public FarmDetailsViewModel FarmDetailsViewModel => provider.GetRequiredService<FarmDetailsViewModel>();
         public FarmStatisticViewModel FarmStatisticViewModel => provider.GetRequiredService<FarmStatisticViewModel>();
+        public PetDetailsViewModel PetsDetailsViewModel => provider.GetRequiredService<PetDetailsViewModel>();
     }
 }

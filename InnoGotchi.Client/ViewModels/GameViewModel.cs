@@ -22,6 +22,9 @@ namespace InnoGotchi.Client.ViewModels
         private Page account;
         private Page farmPets;
         private Page statistic;
+        private Page petDetails;
+
+        private Page lastPage;
 
         private Page currentPage;
         public Page CurrentPage
@@ -77,6 +80,7 @@ namespace InnoGotchi.Client.ViewModels
             account = new Account();
             farmPets = new FarmPets();
             statistic = new FarmStatistic();
+            petDetails = new PetDetails();
             CurrentPage = farm;
         }
         public void InitEvents()
@@ -89,7 +93,15 @@ namespace InnoGotchi.Client.ViewModels
             CreatePetViewModel.OnPetCreated += OnPetCreated;
             FarmDetailsViewModel.OnPetButtonPressed += OnPetMenuButtonPressed;
             FarmDetailsViewModel.OnStatButtonPressed += OnStatisticButtonPressed;
+            FarmPetsViewModel.OnPetSelected += OnPetSelected;
+            PetDetailsViewModel.OnBackPressed += PetDetailsViewModel_OnBackPressed;
         }
+
+        private void PetDetailsViewModel_OnBackPressed()
+        {
+            CurrentPage = lastPage;
+        }
+
         private async void UserAuthorized(string newToken)
         {
             if(newToken != "")
@@ -131,7 +143,11 @@ namespace InnoGotchi.Client.ViewModels
         {
             CurrentPage = statistic;
         }
-
+        private void OnPetSelected(Pet pet)
+        {
+            lastPage = CurrentPage;
+            CurrentPage = petDetails;
+        }
 
 
 

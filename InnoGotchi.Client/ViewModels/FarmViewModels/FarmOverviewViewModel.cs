@@ -8,7 +8,6 @@ using System.Linq;
 using InnoGotchi.Client.Models;
 using InnoGotchi.Domain;
 using InnoGotchi.Client.ViewModels.PetsVewModels;
-using static InnoGotchi.Client.ViewModels.PetsVewModels.CreatePetViewModel;
 
 namespace InnoGotchi.Client.ViewModels.FarmViewModels
 {

@@ -2,9 +2,9 @@
 {
     public class PetAppearance
     {
-        public Body Body { get; set; }
-        public Eye Eye { get; set; }
-        public Mouth Mouth { get; set; }
-        public Nose Nose { get; set; }
+        public Body Body { get; set; } = new Body(); 
+        public Eye Eye { get; set; } = new Eye();
+        public Mouth Mouth { get; set; } = new Mouth();
+        public Nose Nose { get; set; } = new Nose();
     }
 }

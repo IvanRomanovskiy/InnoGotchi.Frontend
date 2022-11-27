@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace InnoGotchi.Client.Views.PetViews
 {
     /// <summary>
-    /// Логика взаимодействия для FarmPets.xaml
+    /// Логика взаимодействия для PetDetails.xaml
     /// </summary>
-    public partial class FarmPets : Page
+    public partial class PetDetails : Page
     {
-        public FarmPets()
+        public PetDetails()
         {
             InitializeComponent();
-        }
-
-        private void Grid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
         }
     }
 }

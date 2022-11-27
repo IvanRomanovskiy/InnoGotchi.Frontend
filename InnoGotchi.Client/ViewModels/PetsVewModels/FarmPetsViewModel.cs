@@ -7,8 +7,8 @@ using InnoGotchi.Frontend.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace InnoGotchi.Client.ViewModels.PetsVewModels
@@ -17,6 +17,8 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
     {
         public delegate void CreatePetClicked();
         public static event CreatePetClicked OnCreatePetClicked;
+        public delegate void PetSelected(Pet pet);
+        public static event PetSelected OnPetSelected;
 
         private readonly PetClient client;
         private readonly IMapper mapper;
@@ -61,6 +63,18 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
             }
         }
 
+        private PetThumbnailPositionModel selectedPet;
+        public PetThumbnailPositionModel SelectedPet
+        {
+            get => selectedPet;
+            set 
+            {
+                selectedPet = value;
+                OnPropertyChanged();
+                OnPetThumbnailSelected(selectedPet);
+            }
+        }
+
         private int page = 1;
         public int Page
         {
@@ -71,7 +85,16 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
                 OnPropertyChanged();
             }
         }
-        private int pageCount { get => (int)Math.Ceiling(pets.Count * 1.0 / 15); }
+        private int pageCount;
+        public int PageCount 
+        {
+            get => pageCount;
+            set
+            {
+                pageCount = value;
+                OnPropertyChanged();
+            }
+        }
 
         private List<Pet> pets;
 
@@ -79,12 +102,15 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
         {
             FarmOverviewViewModel.OnFarmDataReceived += OnFarmDataReceived;
             CreatePetViewModel.OnPetCreated += OnPetCreated;
+            PetDetailsViewModel.OnStatusUpdated += OnStatusUpdated;
+
             this.client = client;
             this.mapper = mapper;
             PetsThumbnailsList = new ObservableCollection<PetThumbnailPositionModel>();
             pets = new List<Pet>();
             Filter = "by happiness days";
         }
+
         private async void OnFarmDataReceived(FarmInfo info)
         {
             FarmName = info.Name;
@@ -95,6 +121,17 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
         {
             pets.Add(pet);
         }
+        private void OnStatusUpdated(Pet pet)
+        {
+            pets.RemoveAll(p => p.Id == pet.Id);
+            pets.Add(pet);
+        }
+        public async void SelectionChanged()
+        {
+            Sort();
+            Page = 1;
+            await ShowPage();
+        }
         private async Task InitPetsThumbnails()
         {
             pets = (List<Pet>)(await client.GetPets(AccessToken.Token)).pets;
@@ -102,6 +139,7 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
         }
         private async Task ShowPage()
         {
+            PageCount = (int)Math.Ceiling(pets.Count * 1.0 / 15);
 
             await Task.Run(() =>{
 
@@ -111,7 +149,7 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
                 });
 
 
-                if (Page > pageCount) Page = 1;
+                if (Page > PageCount) Page = 1;
                 int row = 0;
                 int column = 0;
 
@@ -146,12 +184,7 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
 
         }
 
-        public async void SelectionChanged()
-        {
-            Sort();
-            Page = 1;
-            await ShowPage();
-        }
+
 
         public void Sort()
         {
@@ -181,11 +214,12 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
             }
         }
 
-
-
-
-
-
+        private void OnPetThumbnailSelected(PetThumbnailPositionModel selectedPetThumbnail)
+        {
+            var selectedPet = pets.FirstOrDefault(pet => pet.Name == selectedPetThumbnail.PetThumbnail.PetName);
+            if (selectedPet != null) OnPetSelected.Invoke(selectedPet);
+            Filter = "";
+        }
 
 
         public ICommand ButtonCreatePet_Click
@@ -209,7 +243,7 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
             {
                 Page++;
                 await ShowPage();
-            }, (obj) => Page < pageCount);
+            }, (obj) => Page < PageCount);
         }
     }
 }

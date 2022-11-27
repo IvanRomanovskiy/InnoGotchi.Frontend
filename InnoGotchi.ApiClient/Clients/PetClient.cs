@@ -27,29 +27,28 @@ namespace InnoGotchi.ApiClient.Clients
             else return null;
         }
 
-        public async Task<bool> FeedPet(Guid petId, string token)
+        public async Task<PetStatus> FeedPet(FeedingPetDto petDto, string token)
         {
-            string stringData = JsonSerializer.Serialize(petId);
+            string stringData = JsonSerializer.Serialize(petDto);
 
-            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8);
+            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await httpClient.PutAsync("FeedPet?t=" + token, contentData);
 
-            if (response.IsSuccessStatusCode) return true;
-            else return false;
+            var petStatus = await response.Content.ReadFromJsonAsync<PetStatus>();
+            return petStatus;
 
         }
-        public async Task<bool> ThirstQuenchingPet(Guid petId, string token)
+        public async Task<PetStatus> ThirstQuenchingPet(ThirstQuenchingPetDto petDto, string token)
         {
-            string stringData = JsonSerializer.Serialize(petId);
+            string stringData = JsonSerializer.Serialize(petDto);
 
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await httpClient.PutAsync("ThirstQuenchingPet?t=" + token, contentData);
 
-            if (response.IsSuccessStatusCode) return true;
-            else return false;
-
+            var petStatus = await response.Content.ReadFromJsonAsync<PetStatus>();
+            return petStatus;
         }
 
         public async Task<Pets?> GetPets(string token)

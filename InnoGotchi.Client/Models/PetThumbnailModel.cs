@@ -35,12 +35,10 @@ namespace InnoGotchi.Client.Models
                 opt => opt.MapFrom(pet => pet.Appearance.Body.Path))
                 .ForMember(thumbnail => thumbnail.BackgroundColor,
                 opt => opt.MapFrom(pet => pet.IsAlive ? "Aqua" : "Brown"))
-                .ForMember(thumbnail => thumbnail.Hungry,
-                opt => opt.MapFrom(pet => (int)Math.Round(pet.Status.HungerLevel)))
                 .ForMember(thumbnail => thumbnail.Thirsty,
-                opt => opt.MapFrom(pet => (int)Math.Round(pet.Status.ThirstyLevel)))
+                opt => opt.MapFrom(pet => (int)Math.Ceiling(pet.Status.ThirstyLevel)))
                 .ForMember(thumbnail => thumbnail.Hungry,
-                opt => opt.MapFrom(pet => (int)Math.Round(pet.Status.HungerLevel)))
+                opt => opt.MapFrom(pet => (int)Math.Ceiling(pet.Status.HungerLevel)))
                 .ForMember(thumbnail => thumbnail.Age,
                 opt => opt.MapFrom(pet => pet.Status.Age))
                 .ForMember(thumbnail => thumbnail.Happy,
