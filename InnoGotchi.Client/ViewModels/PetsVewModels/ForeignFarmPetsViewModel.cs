@@ -19,9 +19,20 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
         public ForeignFarmPetsViewModel(PetClient client, IMapper mapper) : base(client, mapper)
         {
             FarmOverviewViewModel.OnCollaboratorSelected += FarmOverviewViewModel_OnCollaboratorSelected;
+            AllFarmsViewModel.OnUserSelected += AllFarmsViewModel_OnUserSelected;
         }
 
-        private async void FarmOverviewViewModel_OnCollaboratorSelected(CollaboratorFarmModel collaborator)
+        private async void AllFarmsViewModel_OnUserSelected(UserFarmModel collaborator)
+        {
+            if (collaborator == null) return;
+            isCollab = false;
+            pets = (List<Pet>)collaborator.Pets;
+            Sort();
+            buttonVisible = isCollab;
+            await ShowPage(buttonVisible);
+        }
+
+        private async void FarmOverviewViewModel_OnCollaboratorSelected(UserFarmModel collaborator)
         {
             if (collaborator == null) return;
             isCollab = true;

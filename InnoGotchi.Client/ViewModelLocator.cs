@@ -36,6 +36,7 @@ namespace InnoGotchi.Client
             });
 
             services.AddTransient<GameViewModel>();
+            services.AddTransient<AllFarmsViewModel>();
             services.AddTransient<AccountViewModel>();
             services.AddTransient<ChangeNameViewModel>();
             services.AddTransient<ChangeAvatarViewModel>();
@@ -83,5 +84,6 @@ namespace InnoGotchi.Client
         public PetDetailsViewModel PetsDetailsViewModel => provider.GetRequiredService<PetDetailsViewModel>();
         public OwnFarmPetsViewModel OwnFarmPetsViewModel => provider.GetRequiredService<OwnFarmPetsViewModel>();
         public ForeignFarmPetsViewModel ForeignFarmPetsViewModel => provider.GetRequiredService<ForeignFarmPetsViewModel>();
+        public AllFarmsViewModel AllFarmsViewModel => provider.GetRequiredService<AllFarmsViewModel>();
     }
 }

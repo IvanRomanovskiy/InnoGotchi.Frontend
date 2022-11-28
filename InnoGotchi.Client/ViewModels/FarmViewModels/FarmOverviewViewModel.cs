@@ -8,6 +8,7 @@ using System.Linq;
 using InnoGotchi.Client.Models;
 using InnoGotchi.Domain;
 using InnoGotchi.Client.ViewModels.PetsVewModels;
+using InnoGotchi.Client.Views;
 
 namespace InnoGotchi.Client.ViewModels.FarmViewModels
 {
@@ -15,7 +16,7 @@ namespace InnoGotchi.Client.ViewModels.FarmViewModels
     {
         public delegate void FarmDataReceived(FarmInfo info);
         public static event FarmDataReceived OnFarmDataReceived;
-        public delegate void CollaboratorSelected(CollaboratorFarmModel collaborator);
+        public delegate void CollaboratorSelected(UserFarmModel collaborator);
         public static event CollaboratorSelected OnCollaboratorSelected;
 
 
@@ -32,8 +33,8 @@ namespace InnoGotchi.Client.ViewModels.FarmViewModels
                 OnPropertyChanged();
             }
         }
-        private ObservableCollection<CollaboratorFarmModel> collaboratorsFarms;
-        public ObservableCollection<CollaboratorFarmModel> CollaboratorsFarms
+        private ObservableCollection<UserFarmModel> collaboratorsFarms;
+        public ObservableCollection<UserFarmModel> CollaboratorsFarms
         {
             get => collaboratorsFarms;
             set
@@ -42,15 +43,16 @@ namespace InnoGotchi.Client.ViewModels.FarmViewModels
                 OnPropertyChanged();
             }
         }
-        private CollaboratorFarmModel selectedCollaborator;
-        public CollaboratorFarmModel SelectedCollaborator
+        private UserFarmModel selectedCollaborator;
+        public UserFarmModel SelectedCollaborator
         {
             get => selectedCollaborator;
             set
-            {
+            {  
+                selectedCollaborator = value;
                 OnCollaboratorSelected.Invoke(value);
-                selectedCollaborator = null;
                 OnPropertyChanged();
+                
             }
         }
 
@@ -63,7 +65,7 @@ namespace InnoGotchi.Client.ViewModels.FarmViewModels
             this.client = client;
             this.mapper = mapper;
             MyFarm = new Page();
-            collaboratorsFarms = new ObservableCollection<CollaboratorFarmModel>();
+            collaboratorsFarms = new ObservableCollection<UserFarmModel>();
         }
         private async void UserAuthorized(string newToken)
         {
@@ -81,8 +83,8 @@ namespace InnoGotchi.Client.ViewModels.FarmViewModels
         private async Task GetData(string token)
         {
             var collabs = await client.GetCollaboratiorFarms(token);
-            CollaboratorsFarms = new ObservableCollection<CollaboratorFarmModel>(collabs.collaboratorFarmsVm.
-                Select(collab => mapper.Map<CollaboratorFarmModel>(collab)));
+            CollaboratorsFarms = new ObservableCollection<UserFarmModel>(collabs.collaboratorFarmsVm.
+                Select(collab => mapper.Map<UserFarmModel>(collab)));
 
             var info = await client.GetFarmInfo(token);
             if (info == null)
@@ -93,18 +95,6 @@ namespace InnoGotchi.Client.ViewModels.FarmViewModels
             MyFarm = new FarmDetails();
             OnFarmDataReceived.Invoke(info);
 
-        }
-
-        protected override void Dispose()
-        {
-            AccessToken.UserAuthorized -= UserAuthorized;
-            CreateFarmViewModel.OnFarmCreated -= OnFarmCreated;
-            CreatePetViewModel.OnPetCreated -= OnPetCreated;
-
-            MyFarm.DataContext = null;
-            CollaboratorsFarms.Clear();
-            SelectedCollaborator = null;
-            base.Dispose();
         }
 
     }

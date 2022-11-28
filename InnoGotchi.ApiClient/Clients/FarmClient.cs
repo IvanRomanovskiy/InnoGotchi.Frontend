@@ -56,6 +56,14 @@ namespace InnoGotchi.ApiClient.Clients
             return farmInfo;
         }
 
+        public async Task<AllFarmsVms?> GetAllFarms(string token)
+        {
+            HttpResponseMessage response = await httpClient.GetAsync("GetAllFarms?t=" + token);
+            if (!response.IsSuccessStatusCode) return null;
 
+            var farmInfo = await response.Content.ReadFromJsonAsync<AllFarmsVms>();
+
+            return farmInfo;
+        }
     }
 }

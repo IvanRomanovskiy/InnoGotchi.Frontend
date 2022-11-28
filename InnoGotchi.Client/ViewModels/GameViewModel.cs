@@ -12,6 +12,7 @@ using InnoGotchi.Frontend.Utilities;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using static InnoGotchi.Client.ViewModels.GameViewModel;
 
 
 namespace InnoGotchi.Client.ViewModels
@@ -22,6 +23,8 @@ namespace InnoGotchi.Client.ViewModels
         public static event GetUserDataHandler GetUserData;
         public delegate void UserLoggedOut();
         public static event UserLoggedOut OnLoggedOut;
+        public delegate void AllFarmEntered();
+        public static event AllFarmEntered OnAllFarmEntered;
 
 
         private Page farm;
@@ -30,6 +33,8 @@ namespace InnoGotchi.Client.ViewModels
         private Page statistic;
         private Page petDetails;
         private Page foreignFarmPets;
+        private Page allPets;
+
 
         private Page lastPage;
 
@@ -85,6 +90,7 @@ namespace InnoGotchi.Client.ViewModels
             statistic = new FarmStatistic();
             petDetails = new PetDetails();
             foreignFarmPets = new ForeignFarmPets();
+            allPets = new AllFarms();
             CurrentPage = farm;
         }
         public void InitEvents()
@@ -99,12 +105,14 @@ namespace InnoGotchi.Client.ViewModels
             FarmDetailsViewModel.OnStatButtonPressed += OnStatisticButtonPressed;     
             PetDetailsViewModel.OnBackPressed += PetDetailsViewModel_OnBackPressed;
             FarmOverviewViewModel.OnCollaboratorSelected += OnCollaboratorSelected;
-
+            AllFarmsViewModel.OnUserSelected += OnUserFarmSelected;
             OwnFarmPetsViewModel.OnCreatePetClicked += OnCreatePetClicked;
             OwnFarmPetsViewModel.OnPetSelected += OnOwnPetSelected;
             ForeignFarmPetsViewModel.OnPetSelected += OnForeignPetSelected;
 
         }
+
+     
 
         private async void MainViewModel_OnLoggedIn(string token)
         {
@@ -118,11 +126,14 @@ namespace InnoGotchi.Client.ViewModels
                 CurrentPage = farm;
         }
 
-        private void OnCollaboratorSelected(CollaboratorFarmModel collaborator)
+        private void OnCollaboratorSelected(UserFarmModel collaborator)
         {
             CurrentPage = foreignFarmPets;
         }
-
+        private void OnUserFarmSelected(UserFarmModel collaborator)
+        {
+            CurrentPage = foreignFarmPets;
+        }
         private void PetDetailsViewModel_OnBackPressed()
         {
             CurrentPage = lastPage;
@@ -163,13 +174,21 @@ namespace InnoGotchi.Client.ViewModels
             CurrentPage = petDetails;
         }
 
-
+        
 
         public ICommand ButtonFarm_Click
         {
             get => new RelayCommand((obj) =>
             {
                 CurrentPage = farm;
+            });
+        }
+        public ICommand ButtonAllPets_Click
+        {
+            get => new RelayCommand((obj) =>
+            {
+                OnAllFarmEntered.Invoke();
+                CurrentPage = allPets;
             });
         }
         public ICommand ButtonAccount_Click
