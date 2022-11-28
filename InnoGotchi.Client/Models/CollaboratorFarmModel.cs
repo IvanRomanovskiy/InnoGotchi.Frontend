@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using InnoGotchi.ApiClient.Mappings;
-using InnoGotchi.ApiClient.Models.Users;
 using InnoGotchi.Client.Components;
 using InnoGotchi.Domain;
 using System.Collections.Generic;

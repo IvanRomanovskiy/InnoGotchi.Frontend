@@ -9,7 +9,7 @@ namespace InnoGotchi.Client.ViewModels
     {
         private Page Login;
         private Page Register;
-
+        private Page Page;
         private Page currentPage;
         public Page CurrentPage
         {
@@ -21,23 +21,20 @@ namespace InnoGotchi.Client.ViewModels
             }
         }
 
-        private double frameOpacity;
-        public double FrameOpacity
-        {
-            get { return frameOpacity; }
-            set { frameOpacity = value; }
-        }
-
         public WelcomeViewModel()
         {
             Login = new Login();
             Register = new Register();
-
-            frameOpacity = 1;
-            CurrentPage = new Page();
+            Page = new Page();
+            CurrentPage = Page;
+            GameViewModel.OnLoggedOut += GameViewModel_OnLoggedOut;
         }
 
-        
+        private void GameViewModel_OnLoggedOut()
+        {
+           CurrentPage = new Page();
+        }
+
         public ICommand ButtonLogin_Click
         {
             get 

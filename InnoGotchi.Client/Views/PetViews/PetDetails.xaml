@@ -68,7 +68,7 @@
 
                 </Grid>
 
-                <Grid Grid.Row="2" Visibility="{Binding IsAlive}">
+                <Grid Grid.Row="2" Visibility="{Binding IsActive}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>

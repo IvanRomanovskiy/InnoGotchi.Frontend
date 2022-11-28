@@ -17,13 +17,13 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
         public delegate void ButtonBackPressed();
         public static event ButtonBackPressed OnBackPressed;
 
-        private Visibility isAlive;
-        public Visibility IsAlive
+        private Visibility isActive;
+        public Visibility IsActive
         {
-            get => isAlive;
+            get => isActive;
             set
             {
-                isAlive = value;
+                isActive = value;
                 OnPropertyChanged();
             }
         }
@@ -153,13 +153,30 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
 
         public PetDetailsViewModel(PetClient client,IMapper mapper)
         {
-            FarmPetsViewModel.OnPetSelected += OnPetSelected;
+            OwnFarmPetsViewModel.OnPetSelected += OnOwnPetSelected;
+            ForeignFarmPetsViewModel.OnPetSelected += OnForeignPetSelected;
             pet = new Pet();
             this.client = client;
             this.mapper = mapper;
             petAction = new PetActionModel();
         }
-        private void OnPetSelected(Pet selectedPet)
+
+     
+
+        private void OnForeignPetSelected(Pet pet, bool canActivity)
+        {
+            InitData(pet);
+            IsActive = canActivity ? Visibility.Visible : Visibility.Hidden;
+            if(!pet.IsAlive) IsActive = Visibility.Hidden;
+        }
+
+        private void OnOwnPetSelected(Pet selectedPet)
+        {
+            InitData(selectedPet);
+        }
+
+
+        private void InitData(Pet selectedPet)
         {
             pet = selectedPet;
             Name = selectedPet.Name;
@@ -175,10 +192,9 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
             EyesPath = selectedPet.Appearance.Eye.Path;
             MouthPath = selectedPet.Appearance.Mouth.Path;
             NosePath = selectedPet.Appearance.Nose.Path;
-            IsAlive = selectedPet.IsAlive ? Visibility.Visible : Visibility.Hidden;
+            IsActive = selectedPet.IsAlive ? Visibility.Visible : Visibility.Hidden;
             petAction.PetId = selectedPet.Id;
-        }
-
+        } 
 
         public ICommand ButtonFeed_Click
         {
@@ -186,10 +202,10 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
             {
                 var status = await client.FeedPet(mapper.Map<FeedingPetDto>(petAction), AccessToken.Token);
                 pet.Status = status;
-                OnPetSelected(pet);
+                InitData(pet);
                 OnStatusUpdated.Invoke(pet);
 
-            },(obj) => HungerLevel < 80);
+            },(obj) => pet.Status.HungerLevel < 80);
         }
         public ICommand ButtonDrink_Click
         {
@@ -197,12 +213,10 @@ namespace InnoGotchi.Client.ViewModels.PetsVewModels
             {
                 var status = await client.ThirstQuenchingPet(mapper.Map<ThirstQuenchingPetDto>(petAction), AccessToken.Token);
                 pet.Status = status;
-                OnPetSelected(pet);
+                InitData(pet);
                 OnStatusUpdated.Invoke(pet);
-            },(obj) => ThirstyLevel < 80);
-        }
-        
-
+            },(obj) => pet.Status.ThirstyLevel < 80);
+        }      
         public ICommand ButtonBack_Click
         {
             get => new RelayCommand((obj) =>

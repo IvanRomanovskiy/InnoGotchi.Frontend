@@ -22,5 +22,8 @@ namespace InnoGotchi.Client.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        protected virtual void Dispose() { }
+
     }
 }

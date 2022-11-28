@@ -13,20 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace InnoGotchi.Client.Views
+namespace InnoGotchi.Client.Views.PetViews
 {
     /// <summary>
-    /// Логика взаимодействия для Game.xaml
+    /// Логика взаимодействия для ForeignFarmPets.xaml
     /// </summary>
-    public partial class Game : Page
+    public partial class ForeignFarmPets : Page
     {
-        public Game()
+        public ForeignFarmPets()
         {
             InitializeComponent();
-        }
-
-        ~Game(){
-
         }
     }
 }

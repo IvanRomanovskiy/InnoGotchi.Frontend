@@ -46,8 +46,8 @@ namespace InnoGotchi.Client
             services.AddTransient<FarmDetailsViewModel>();
             services.AddTransient<FarmStatisticViewModel>();
 
-            services.AddTransient<FarmViewModel>();
-            services.AddTransient<FarmPetsViewModel>();
+            services.AddTransient<OwnFarmPetsViewModel>();
+            services.AddTransient<ForeignFarmPetsViewModel>();
             services.AddTransient<CreatePetViewModel>();
             services.AddTransient<PetDetailsViewModel>(); 
 
@@ -75,14 +75,13 @@ namespace InnoGotchi.Client
         public ChangeNameViewModel ChangeNameViewModel => provider.GetRequiredService<ChangeNameViewModel>();
         public ChangeAvatarViewModel ChangeAvatarViewModel => provider.GetRequiredService<ChangeAvatarViewModel>();
         public ChangePasswordViewModel ChangePasswordViewModel => provider.GetRequiredService<ChangePasswordViewModel>();
-        public FarmViewModel FarmViewModel => provider.GetRequiredService<FarmViewModel>();
-        public FarmPetsViewModel FarmPetsViewModel => provider.GetRequiredService<FarmPetsViewModel>();
         public CreatePetViewModel CreatePetViewModel => provider.GetRequiredService<CreatePetViewModel>();
-
         public FarmOverviewViewModel FarmOverviewViewModel => provider.GetRequiredService<FarmOverviewViewModel>();
         public CreateFarmViewModel CreateFarmViewModel => provider.GetRequiredService<CreateFarmViewModel>();
         public FarmDetailsViewModel FarmDetailsViewModel => provider.GetRequiredService<FarmDetailsViewModel>();
         public FarmStatisticViewModel FarmStatisticViewModel => provider.GetRequiredService<FarmStatisticViewModel>();
         public PetDetailsViewModel PetsDetailsViewModel => provider.GetRequiredService<PetDetailsViewModel>();
+        public OwnFarmPetsViewModel OwnFarmPetsViewModel => provider.GetRequiredService<OwnFarmPetsViewModel>();
+        public ForeignFarmPetsViewModel ForeignFarmPetsViewModel => provider.GetRequiredService<ForeignFarmPetsViewModel>();
     }
 }

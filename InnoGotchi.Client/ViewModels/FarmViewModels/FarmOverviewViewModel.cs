@@ -15,6 +15,8 @@ namespace InnoGotchi.Client.ViewModels.FarmViewModels
     {
         public delegate void FarmDataReceived(FarmInfo info);
         public static event FarmDataReceived OnFarmDataReceived;
+        public delegate void CollaboratorSelected(CollaboratorFarmModel collaborator);
+        public static event CollaboratorSelected OnCollaboratorSelected;
 
 
         private readonly FarmClient client;
@@ -40,6 +42,18 @@ namespace InnoGotchi.Client.ViewModels.FarmViewModels
                 OnPropertyChanged();
             }
         }
+        private CollaboratorFarmModel selectedCollaborator;
+        public CollaboratorFarmModel SelectedCollaborator
+        {
+            get => selectedCollaborator;
+            set
+            {
+                OnCollaboratorSelected.Invoke(value);
+                selectedCollaborator = null;
+                OnPropertyChanged();
+            }
+        }
+
 
         public FarmOverviewViewModel(FarmClient client, IMapper mapper)
         {
@@ -80,5 +94,18 @@ namespace InnoGotchi.Client.ViewModels.FarmViewModels
             OnFarmDataReceived.Invoke(info);
 
         }
+
+        protected override void Dispose()
+        {
+            AccessToken.UserAuthorized -= UserAuthorized;
+            CreateFarmViewModel.OnFarmCreated -= OnFarmCreated;
+            CreatePetViewModel.OnPetCreated -= OnPetCreated;
+
+            MyFarm.DataContext = null;
+            CollaboratorsFarms.Clear();
+            SelectedCollaborator = null;
+            base.Dispose();
+        }
+
     }
 }

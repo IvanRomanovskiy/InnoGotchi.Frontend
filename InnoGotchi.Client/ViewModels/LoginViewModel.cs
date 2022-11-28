@@ -4,7 +4,6 @@ using InnoGotchi.ApiClient.Models.Users;
 using InnoGotchi.Client.Models;
 using InnoGotchi.Frontend.Utilities;
 using System.Net.Mail;
-
 using System.Windows.Input;
 
 namespace InnoGotchi.Client.ViewModels
@@ -21,12 +20,25 @@ namespace InnoGotchi.Client.ViewModels
             this.commands = commands;
             this.mapper = mapper;
             Error = "";
+            GameViewModel.OnLoggedOut += GameViewModel_OnLoggedOut;
+        }
+
+        private void GameViewModel_OnLoggedOut()
+        {
+            Email = "";
+            Password = "";
+            Error = "";
+            InputIsActive = true;
         }
 
         public string Email 
         {
             get => login.Email;    
-            set => login.Email = value;            
+            set
+            {
+                login.Email = value; 
+                OnPropertyChanged();
+            }            
         }
         public string Password
         {

@@ -4,6 +4,7 @@ using InnoGotchi.ApiClient.Interfaces;
 using InnoGotchi.ApiClient.Models.Users;
 using InnoGotchi.Client.Components;
 using InnoGotchi.Client.Models;
+using InnoGotchi.Client.Views;
 using InnoGotchi.Frontend.Utilities;
 using Microsoft.Win32;
 using System;
@@ -28,7 +29,14 @@ namespace InnoGotchi.Client.ViewModels
             Error = "";
             this.mapper = mapper;
             this.commands = commands;
+            GameViewModel.OnLoggedOut += GameViewModel_OnLoggedOut;
         }
+        private void GameViewModel_OnLoggedOut()
+        {
+            register = new RegisterModel();
+            inputIsActive = true;
+        }
+
 
         private bool inputIsActive = true;
         public bool InputIsActive

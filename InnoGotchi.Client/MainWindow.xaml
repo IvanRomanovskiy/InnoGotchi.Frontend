@@ -5,13 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         DataContext ="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
-        MinHeight="600" MinWidth="1200"
+        MinHeight="850" MinWidth="1200"
         Title="MainWindow" Height="600" Width="1200" WindowStartupLocation="CenterScreen">
 
     <Grid>
         <Frame 
             Content="{Binding CurrentPage}"
-            NavigationUIVisibility="Hidden"
-            Opacity="{Binding FrameOpacity}"/>
+            NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

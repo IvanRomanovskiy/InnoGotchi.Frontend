@@ -5,6 +5,10 @@ namespace InnoGotchi.Client.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+
+        public delegate void UserLoggedIn(string token);
+        public static event UserLoggedIn OnLoggedIn;
+
         private Page Welcome;
         private Page Game;
 
@@ -13,7 +17,7 @@ namespace InnoGotchi.Client.ViewModels
         {
             get { return currentPage; }
             set 
-            { 
+            {
                 currentPage = value;
                 OnPropertyChanged();
             }
@@ -30,7 +34,6 @@ namespace InnoGotchi.Client.ViewModels
         {
             Welcome = new Welcome();
             Game = new Game();
-            frameOpacity = 1;
             CurrentPage = Welcome;
             AccessToken.UserAuthorized += UserAuthorized;
         }
@@ -38,13 +41,12 @@ namespace InnoGotchi.Client.ViewModels
         {
             if (newToken != "")
             {
+                OnLoggedIn.Invoke(newToken);
                 CurrentPage = Game;
             }
             else 
             {
-                Game = new Game();
-                Welcome = new Welcome();             
-                CurrentPage = Welcome; 
+                CurrentPage = Welcome;
             }
         }
 

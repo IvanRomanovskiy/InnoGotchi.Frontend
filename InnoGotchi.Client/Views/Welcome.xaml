@@ -29,8 +29,7 @@
             <Grid  Grid.Column="0" Margin="10,10,10,10">
                 <Frame 
                         Content="{Binding CurrentPage}"
-                        NavigationUIVisibility="Hidden"
-                        Opacity="{Binding FrameOpacity}"/>
+                        NavigationUIVisibility="Hidden"/>
 
 
 

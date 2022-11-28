@@ -18,11 +18,18 @@ namespace InnoGotchi.Client.ViewModels
 {
     public class GameViewModel : ViewModelBase
     {
+        public delegate void GetUserDataHandler(UserDataModel userData);
+        public static event GetUserDataHandler GetUserData;
+        public delegate void UserLoggedOut();
+        public static event UserLoggedOut OnLoggedOut;
+
+
         private Page farm;
         private Page account;
         private Page farmPets;
         private Page statistic;
         private Page petDetails;
+        private Page foreignFarmPets;
 
         private Page lastPage;
 
@@ -63,10 +70,6 @@ namespace InnoGotchi.Client.ViewModels
             }
         }
 
-        public delegate void GetUserDataHandler(UserDataModel userData);
-        public static event GetUserDataHandler GetUserData;
-
-
         private readonly AccountClient client;
         private readonly IMapper mapper;
         public GameViewModel(AccountClient client, IMapper mapper)
@@ -81,20 +84,43 @@ namespace InnoGotchi.Client.ViewModels
             farmPets = new FarmPets();
             statistic = new FarmStatistic();
             petDetails = new PetDetails();
+            foreignFarmPets = new ForeignFarmPets();
             CurrentPage = farm;
         }
         public void InitEvents()
         {
-            AccessToken.UserAuthorized += UserAuthorized;
+            MainViewModel.OnLoggedIn += MainViewModel_OnLoggedIn;
+
+
             ChangeNameViewModel.UserNameChanged += UserNameChanged;
             ChangeAvatarViewModel.AvatarChanged += AvatarChanged;
-            FarmPetsViewModel.OnCreatePetClicked += OnCreatePetClicked;
-            FarmViewModel.OnMyPetsClicked += OnMyPetsClicked;
             CreatePetViewModel.OnPetCreated += OnPetCreated;
             FarmDetailsViewModel.OnPetButtonPressed += OnPetMenuButtonPressed;
-            FarmDetailsViewModel.OnStatButtonPressed += OnStatisticButtonPressed;
-            FarmPetsViewModel.OnPetSelected += OnPetSelected;
+            FarmDetailsViewModel.OnStatButtonPressed += OnStatisticButtonPressed;     
             PetDetailsViewModel.OnBackPressed += PetDetailsViewModel_OnBackPressed;
+            FarmOverviewViewModel.OnCollaboratorSelected += OnCollaboratorSelected;
+
+            OwnFarmPetsViewModel.OnCreatePetClicked += OnCreatePetClicked;
+            OwnFarmPetsViewModel.OnPetSelected += OnOwnPetSelected;
+            ForeignFarmPetsViewModel.OnPetSelected += OnForeignPetSelected;
+
+        }
+
+        private async void MainViewModel_OnLoggedIn(string token)
+        {
+                var data = mapper.Map<UserDataModel>(await client.GetUserData(token));
+
+                userData.FirstName = data.FirstName;
+                userData.LastName = data.LastName;
+                Avatar = data.Avatar;
+                userData.Email = data.Email;
+                FullName = $"{data.FirstName} {data.LastName}";
+                CurrentPage = farm;
+        }
+
+        private void OnCollaboratorSelected(CollaboratorFarmModel collaborator)
+        {
+            CurrentPage = foreignFarmPets;
         }
 
         private void PetDetailsViewModel_OnBackPressed()
@@ -102,19 +128,6 @@ namespace InnoGotchi.Client.ViewModels
             CurrentPage = lastPage;
         }
 
-        private async void UserAuthorized(string newToken)
-        {
-            if(newToken != "")
-            {
-                var data = mapper.Map<UserDataModel>(await client.GetUserData(newToken));
-
-                userData.FirstName = data.FirstName;
-                userData.LastName = data.LastName;
-                Avatar = data.Avatar;
-                userData.Email = data.Email;
-                FullName = $"{data.FirstName} {data.LastName}";
-            }
-        }
         private void UserNameChanged(string firstName, string lastname)
         {
             FullName = $"{firstName} {lastname}";
@@ -126,10 +139,6 @@ namespace InnoGotchi.Client.ViewModels
         private void OnCreatePetClicked()
         {
             CurrentPage = new CreatePet();
-        }
-        private void OnMyPetsClicked()
-        {
-            CurrentPage = farmPets;
         }
         private void OnPetCreated(Pet pet)
         {
@@ -143,7 +152,12 @@ namespace InnoGotchi.Client.ViewModels
         {
             CurrentPage = statistic;
         }
-        private void OnPetSelected(Pet pet)
+        private void OnOwnPetSelected(Pet pet)
+        {
+            lastPage = CurrentPage;
+            CurrentPage = petDetails;
+        }
+        private void OnForeignPetSelected(Pet pet, bool canActivity)
         {
             lastPage = CurrentPage;
             CurrentPage = petDetails;
@@ -171,6 +185,7 @@ namespace InnoGotchi.Client.ViewModels
             get => new RelayCommand((obj) =>
             {
                 AccessToken.Token = "";
+                OnLoggedOut.Invoke();
             });
         }
     }

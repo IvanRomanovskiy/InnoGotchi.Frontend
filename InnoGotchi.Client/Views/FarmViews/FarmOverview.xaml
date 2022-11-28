@@ -42,7 +42,7 @@
                 <Label Grid.Row="0" Content="Farms, where I'm collaborator" HorizontalAlignment="Center" FontSize="25"/>
 
                 <Grid Grid.Row="1">
-                    <ListBox Background="Transparent" BorderBrush="Transparent" ItemsSource="{Binding CollaboratorsFarms}" >
+                    <ListBox Background="Transparent" BorderBrush="Transparent" ItemsSource="{Binding CollaboratorsFarms}" SelectedItem="{Binding SelectedCollaborator}" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
