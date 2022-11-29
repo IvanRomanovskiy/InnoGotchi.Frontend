@@ -17,7 +17,7 @@
         <Label Grid.Row="0" Content="All pet list" FontSize="30" HorizontalAlignment="Center"/>
 
         <Grid Grid.Row="1">
-            <ListBox Background="Transparent" BorderBrush="Transparent" ItemsSource="{Binding UserFarms}" SelectedItem="{Binding SelectedUser, Delay=1}" >
+            <ListBox Background="Transparent" BorderBrush="Transparent" ItemsSource="{Binding UserFarms}" SelectedItem="{Binding SelectedUser, Delay=0}" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>

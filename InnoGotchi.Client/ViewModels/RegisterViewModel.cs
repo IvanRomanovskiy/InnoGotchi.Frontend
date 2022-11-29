@@ -1,17 +1,13 @@
 ﻿using AutoMapper;
 using InnoGotchi.ApiClient.Clients;
-using InnoGotchi.ApiClient.Interfaces;
 using InnoGotchi.ApiClient.Models.Users;
 using InnoGotchi.Client.Components;
 using InnoGotchi.Client.Models;
-using InnoGotchi.Client.Views;
 using InnoGotchi.Frontend.Utilities;
 using Microsoft.Win32;
 using System;
-using System.IO;
 using System.Net.Mail;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 
@@ -33,8 +29,12 @@ namespace InnoGotchi.Client.ViewModels
         }
         private void GameViewModel_OnLoggedOut()
         {
-            register = new RegisterModel();
-            inputIsActive = true;
+            InputIsActive = true;
+            Email = "";
+            FirstName = "";
+            LastName = "";
+            Error = "";
+            Avatar = null;
         }
 
 
@@ -116,7 +116,6 @@ namespace InnoGotchi.Client.ViewModels
                 });
             }
         }
-
         public ICommand ButtonEnter_Click
         {
             get

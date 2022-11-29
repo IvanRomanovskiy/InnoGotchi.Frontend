@@ -49,8 +49,8 @@ namespace InnoGotchi.Client.ViewModels.FarmViewModels
             get => selectedCollaborator;
             set
             {  
-                selectedCollaborator = value;
                 OnCollaboratorSelected.Invoke(value);
+                selectedCollaborator = null;
                 OnPropertyChanged();
                 
             }

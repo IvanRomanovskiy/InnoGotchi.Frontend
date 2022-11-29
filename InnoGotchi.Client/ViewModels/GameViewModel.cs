@@ -104,7 +104,7 @@ namespace InnoGotchi.Client.ViewModels
             FarmDetailsViewModel.OnPetButtonPressed += OnPetMenuButtonPressed;
             FarmDetailsViewModel.OnStatButtonPressed += OnStatisticButtonPressed;     
             PetDetailsViewModel.OnBackPressed += PetDetailsViewModel_OnBackPressed;
-            FarmOverviewViewModel.OnCollaboratorSelected += OnCollaboratorSelected;
+            FarmOverviewViewModel.OnCollaboratorSelected += OnUserFarmSelected;
             AllFarmsViewModel.OnUserSelected += OnUserFarmSelected;
             OwnFarmPetsViewModel.OnCreatePetClicked += OnCreatePetClicked;
             OwnFarmPetsViewModel.OnPetSelected += OnOwnPetSelected;
@@ -126,10 +126,6 @@ namespace InnoGotchi.Client.ViewModels
                 CurrentPage = farm;
         }
 
-        private void OnCollaboratorSelected(UserFarmModel collaborator)
-        {
-            CurrentPage = foreignFarmPets;
-        }
         private void OnUserFarmSelected(UserFarmModel collaborator)
         {
             CurrentPage = foreignFarmPets;
