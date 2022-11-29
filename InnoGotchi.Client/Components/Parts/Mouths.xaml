@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:svgc="http://sharpvectors.codeplex.com/svgc/">
+
+    <svgc:SvgViewbox x:Key="mouth1" Source="/Components/Images/Mouths/mouth1.svg"/>
+    <svgc:SvgViewbox x:Key="mouth2" Source="/Components/Images/Mouths/mouth2.svg"/>
+    <svgc:SvgViewbox x:Key="mouth3" Source="/Components/Images/Mouths/mouth3.svg"/>
+    <svgc:SvgViewbox x:Key="mouth4" Source="/Components/Images/Mouths/mouth4.svg"/>
+    <svgc:SvgViewbox x:Key="mouth5" Source="/Components/Images/Mouths/mouth5.svg"/>
+
+</ResourceDictionary>

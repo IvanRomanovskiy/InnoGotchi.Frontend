@@ -1,0 +1,81 @@
+﻿<Page x:Class="InnoGotchi.Client.Views.FarmViews.FarmDetails"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InnoGotchi.Client.Views.FarmViews"
+      mc:Ignorable="d" 
+      DataContext ="{Binding FarmDetailsViewModel, Source={StaticResource ViewModelLocator}}"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="FarmDetails">
+
+    <Grid Background="Gray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" FontSize="30" Content="{Binding FarmName}" ContentStringFormat='Farm "{0}"' HorizontalAlignment="Center"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Command="{Binding ButtonPets_Click}" Margin="10" Content="Pets" FontSize="30"/>
+            <Button Grid.Column="1" Command="{Binding ButtonStat_Click}" Margin="10" Content="Farm's statistic" FontSize="30"/>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+            </Grid>
+            
+            
+            
+        </Grid>
+
+        <Grid Grid.Row="2">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            
+            <Label Grid.Row="0" Content="Add collaborator" HorizontalAlignment="Center" FontSize="25"/>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Content="Email" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBox Grid.Column="1" FontSize="30" VerticalAlignment="Center" Margin="10" Text="{Binding Email}"/>
+
+                    <Grid Grid.Column="2">
+                        <Button Margin="10" Content="Add" Command="{Binding ButtonAdd_Click}" FontSize="30" />
+                    </Grid>
+
+                </Grid>
+
+                <Label Grid.Row="1" Content="{Binding Error}" HorizontalAlignment="Center" FontSize="20"/>
+            </Grid>
+
+        </Grid>
+        
+    </Grid>
+</Page>

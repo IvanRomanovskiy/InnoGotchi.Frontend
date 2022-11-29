@@ -1,0 +1,115 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Components\Images\Bodies\body1.svg" />
+    <None Remove="Components\Images\Bodies\body2.svg" />
+    <None Remove="Components\Images\Eyes\eye1.svg" />
+    <None Remove="Components\Images\Eyes\eye2.svg" />
+    <None Remove="Components\Images\Eyes\eye3.svg" />
+    <None Remove="Components\Images\Eyes\eye4.svg" />
+    <None Remove="Components\Images\Mouths\mouth1.svg" />
+    <None Remove="Components\Images\Mouths\mouth2.svg" />
+    <None Remove="Components\Images\Mouths\mouth3.svg" />
+    <None Remove="Components\Images\Mouths\mouth4.svg" />
+    <None Remove="Components\Images\Mouths\mouth5.svg" />
+    <None Remove="Components\Images\Noses\nose1.svg" />
+    <None Remove="Components\Images\Noses\nose2.svg" />
+    <None Remove="Components\Images\Noses\nose3.svg" />
+    <None Remove="Components\Images\Noses\nose4.svg" />
+    <None Remove="Components\Images\Noses\nose5.svg" />
+    <None Remove="Components\Images\Noses\nose6.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Components\Parts\Bodies.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="DotNetProjects.WpfToolkit.DataVisualization" Version="6.1.94" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="SharpVectors.Wpf" Version="1.8.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InnoGotchi.ApiClient\InnoGotchi.ApiClient.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Components\Images\Bodies\body1.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Images\Bodies\body2.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Images\Eyes\eye1.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Images\Eyes\eye2.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Images\Eyes\eye3.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Images\Eyes\eye4.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Images\Mouths\mouth1.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Images\Mouths\mouth2.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Images\Mouths\mouth3.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Images\Mouths\mouth4.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Images\Mouths\mouth5.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Images\Noses\nose1.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Images\Noses\nose2.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Images\Noses\nose3.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Images\Noses\nose4.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Images\Noses\nose5.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Images\Noses\nose6.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Components\Parts\Bodies.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

@@ -3,7 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InnoGotchi.Domain", "InnoGotchi.Domain\InnoGotchi.Domain.csproj", "{5CD402AC-0050-4F52-A0B0-89E1404CA66D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InnoGotchi.ApiClient", "InnoGotchi.ApiClient\InnoGotchi.ApiClient.csproj", "{674E6DF9-F7B6-4FC9-85B1-84EC3E2EEBE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InnoGotchi.Client", "InnoGotchi.Client\InnoGotchi.Client.csproj", "{7ACDDBD2-A0AC-4383-AD65-D5B7BEC773EF}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5CD402AC-0050-4F52-A0B0-89E1404CA66D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CD402AC-0050-4F52-A0B0-89E1404CA66D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CD402AC-0050-4F52-A0B0-89E1404CA66D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CD402AC-0050-4F52-A0B0-89E1404CA66D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{674E6DF9-F7B6-4FC9-85B1-84EC3E2EEBE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{674E6DF9-F7B6-4FC9-85B1-84EC3E2EEBE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{674E6DF9-F7B6-4FC9-85B1-84EC3E2EEBE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{674E6DF9-F7B6-4FC9-85B1-84EC3E2EEBE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ACDDBD2-A0AC-4383-AD65-D5B7BEC773EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ACDDBD2-A0AC-4383-AD65-D5B7BEC773EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ACDDBD2-A0AC-4383-AD65-D5B7BEC773EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ACDDBD2-A0AC-4383-AD65-D5B7BEC773EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
